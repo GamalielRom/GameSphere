@@ -1,6 +1,6 @@
 import  {Database}  from "sqlite3";
 import { open } from 'sqlite';
-import { createCompany, deleteCompanyByID, getAllCompanies, getCompanyByID } from './CRUD';
+import { createCompany, deleteCompanyByID, getAllCompanies, getCompanyByID, getVideogameByID } from './CRUD';
 
 //This is usefull to open the database
 (async () => {
@@ -42,27 +42,26 @@ import { createCompany, deleteCompanyByID, getAllCompanies, getCompanyByID } fro
 
 async function testCRUD() {
     try{
-        const companyCreate = await createCompany({ company_name: 'Rockstar' });
+        const companyCreate = await createCompany({ company_name: 'Naughty Dogs' });
         console.log('Created Company ID:', companyCreate);
         
-       
-        
-        // READ: Obtener todas las compañías
+        // READ: All companies
         const companies = await getAllCompanies();
         console.log('All Companies:', companies);
     
-        // READ BY ID: Obtener una compañía específica
+        // READ BY ID: One company
         const company = await getCompanyByID(2);
         console.log('Company by ID:', company);
     
-        // DELETE: Eliminar la compañía
+        // DELETE: Delete a company
         await deleteCompanyByID(2);
         console.log(`Company with ID ${companyCreate} deleted.`);
     
-        // Verificar las compañías después de la eliminación
+        // Check the companies after the delete
         const companiesAfterDeletion = await getAllCompanies();
         console.log('Companies after deletion:', companiesAfterDeletion);
     
+        
         console.log('--- Tests Completed Successfully ---');
       } catch (error) {
         console.error('Error during tests:', error.message);

@@ -757,4 +757,4 @@ export async function getGenresForVideogame(videogameId:number) {
         console.error('Error selecting genres for videogame', error.message);
         return [];
     }
-}
+};
