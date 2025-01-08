@@ -44,17 +44,20 @@ async function testCRUD() {
     try{
         const companyCreate = await createCompany({ company_name: 'Naughty Dogs' });
         console.log('Created Company ID:', companyCreate);
-        
         // READ: All companies
         const companies = await getAllCompanies();
+
+        //Find the value we want
+        const selectedcompany = companies.find(c => c.company_name === 'Rockstar');
+
         console.log('All Companies:', companies);
-    
+        console.log(`Selected company:`, selectedcompany)
         // READ BY ID: One company
-        const company = await getCompanyByID(2);
+        const company = await getCompanyByID(selectedcompany.Id);
         console.log('Company by ID:', company);
     
         // DELETE: Delete a company
-        await deleteCompanyByID(2);
+        await deleteCompanyByID(selectedcompany.Id);
         console.log(`Company with ID ${companyCreate} deleted.`);
     
         // Check the companies after the delete
