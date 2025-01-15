@@ -40,7 +40,7 @@ import { createCompany, deleteCompanyByID, getAllCompanies, getCompanyByID, getV
 
 //Test CRUD
 
-async function testCRUD() {
+async function testCRUDCompany() {
     try{
         const companyCreate = await createCompany({ company_name: 'Naughty Dogs' });
         console.log('Created Company ID:', companyCreate);
@@ -71,4 +71,5 @@ async function testCRUD() {
       }
 }
 
-testCRUD();
+testCRUDCompany();
+

@@ -2,40 +2,16 @@ import dbPromise from "./db";
 //Videogame Table
 //Create a Videogame
 export async function CreateVideogame(Videogame: 
-    { gameName: string,
-      Description: string,
-      Image: string,
-      buy_link:string,
-      game_page_link: string,
-      critic_rating: number,
-      user_rating: number,
-      trophies: number,
-      Trailer: string,
-      players: number,
-      company_id: number
-    }) 
+   any) 
         {
             try{
                 const db = await dbPromise;
                 const query = `
                     INSERT INTO Videogames
-                    (gameName, Description, Image, buy_link, game_page_link, critic_rating, user_rating, trophies, Trailer, players, company_id)
-                    VALUES (?,?,?,?,?,?,?,?,?,?,?);
+                    (gameName, Description, Image, PlayStation_Link,Steam_Link,Nintendo_Link,Xbox_Link, game_page_link, critic_rating, user_rating, trophies, Trailer, players, company_id)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);;
                 `;
-                const values = [
-                    Videogame.gameName,
-                    Videogame.Description,
-                    Videogame.Image,
-                    Videogame.buy_link,
-                    Videogame.game_page_link,
-                    Videogame.critic_rating,
-                    Videogame.user_rating,
-                    Videogame.trophies,
-                    Videogame.Trailer,
-                    Videogame.players,
-                    Videogame.company_id
-                ];
-
+                const values = Object.values(Videogame)
                 await db.run(query, values);
                 console.log('Videogame added successfully');
             }catch(error){
@@ -46,7 +22,11 @@ export async function CreateVideogame(Videogame:
 export async function getAllVideogames() {
     try{
         const db = await dbPromise;
-        const query = `SELECT * FROM Videogames`;
+        const query = ` SELECT v.*, GROUP_CONCAT(g.game_genre, ', ') AS genres
+                        FROM Videogames v
+                        LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
+                        LEFT JOIN Genres g ON gg.videogameId = g.id
+                        GROUP BY v.id;`;
         const videogames = await db.all(query);
         return videogames;
     }catch(error){
@@ -59,7 +39,11 @@ export async function getAllVideogames() {
 export async function getVideogameByID(id:number) {
     try{
         const db = await dbPromise;
-        const query = `Select * FROM Videogames WHERE id = ?;`;
+        const query = `SELECT v.*, GROUP_CONCAT(g.game_genre, ', ') AS genres
+                        FROM Videogames v
+                        LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
+                        LEFT JOIN Genres g ON gg.genresId = g.id
+                        WHERE v.id = ?;`;
         const videogame = await db.get(query, id);
         return videogame;
     }catch(error){
@@ -74,7 +58,10 @@ export async function updateVideogameByID(
         gameName: string,
       Description: string,
       Image: string,
-      buy_link:string,
+      PlayStation_Link:string,
+      Steam_Link:string,
+      Nintendo_Link:string,
+      Xbox_Link:string,
       game_page_link: string,
       critic_rating: number,
       user_rating: number,
@@ -112,7 +99,7 @@ export async function updateVideogameByID(
       };
 //Delete videogameByID
 
-export async function deleteVideogameByID(id:number) {
+export async function deleteVideogameByID(id:number): Promise<void> {
     try{
         const db = await dbPromise;
         const videogameExist = await db.get(`SELECT 1 FROM Videogames WHERE id = ?;`,id);
@@ -120,36 +107,48 @@ export async function deleteVideogameByID(id:number) {
             throw new Error(`Videogame with ID ${id} does not exist`);
         }
         const query = `DELETE FROM Videogames Where id = ?;`;
-        await db.run(query, id);
+        const result = await db.run(query, id);
+        if(result.changes === 0){
+            throw new Error(`Failed to delete the videogame with the id of ${id}`);
+        }
         console.log('Videogame Deleted Sucessfully')
+        
     }
     catch(error){
         console.error('Error deleting the videogame:', error.message);
+        throw Error;
     }
 };
 
 //GENRES TABLE 
 // Add Genre 
-export async function createGenre(Genre: {
-    game_genre: string
-    }) 
+export async function createGenre(
+    game_genre: string) 
     {
             try{
             const db = await dbPromise;
+            const existingGenre = await db.get(
+                `SELECT 1 FROM Genres WHERE game_genre = ?`, [game_genre]
+            );
+            if(existingGenre){
+                throw new Error(`Genre "${game_genre}" already exists`);
+            }
             const query = 
             `
             INSERT INTO Genres
                 (game_genre)
             VALUES (?);
             `;
-            await db.run(query, [Genre.game_genre]);
+            const result = await db.run(query, [game_genre]);
             console.log('Genre added successfully');
+            return {id: result.lastID, game_genre};
         }catch(error : any){
-            if(error.code === 'SQLITE_CONSTRAINT'){
+            if(error.message.includes('already existis')){
                 console.error('Genre already exists');
             }
             else{
                 console.log('Error trying to add a genre', error.message);
+                throw new Error('Failed to create genre');
             }
         }
     };
@@ -189,7 +188,7 @@ export async function getGenreByID(id:number) {
 
 export async function updateGenreByID( 
     id:number,
-    updates: Partial< {game_genre: string}>)
+    updates: {game_genre: string})
         {
         try{
         const db = await dbPromise;
@@ -201,17 +200,17 @@ export async function updateGenreByID(
         if(!genreExist){
             throw new Error(`Genre with ${id} does not exist`);
         }
-
-        const fields = Object.keys(updates)
-            .map((key) => `${key} = ?`) 
-            .join(", ");
-
-        const values =[...Object.values(updates), id];
-        const query = `UPDATE Genres SET ${fields} WHERE id = ?;`;
-        await db.run(query, values);
+        
+        const query = `UPDATE Genres SET game_genre =? WHERE id = ?;`;
+        const result = await db.run(query, [updates.game_genre]);
+        if(result.changes === 0){
+            return null;
+        }
         console.log(`Genre with the id of ${id} Updated`);
-    } catch(error){
+        return {id, ...updates};
+    } catch(error: any){
         console.error('Error updating the genre:', error.message);
+        throw error;
     }
 };
 
@@ -232,6 +231,26 @@ export async function deleteGenreByID(id:number) {
         console.error('Error deleting the genre:', error.message);
     }
 }
+//Platform Table 
+export async function getAllPlatform() 
+    {
+        try{
+            const db = await dbPromise;
+            return db.all(`Select * FROM Plataforms`);
+        }catch(error){
+            
+            console.log('Error reading the table', error.message);
+        }
+    };
+
+export async function getPlatformById(id:number) {
+    try{
+        const db = await dbPromise;
+        return db.get(`SELECT * FROM Plataforms WHERE id = ?;`);
+    }catch(error){
+        console.error(`The id: ${id} does not exist`);
+    }
+};
 
 //USERS Table
 //Create a user
@@ -758,3 +777,4 @@ export async function getGenresForVideogame(videogameId:number) {
         return [];
     }
 };
+
