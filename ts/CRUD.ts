@@ -1,4 +1,5 @@
 import dbPromise from "./db";
+//All of this are being used by the controllers on Sources/Controllers and then used by the routes
 //Videogame Table
 //Create a Videogame
 export async function CreateVideogame(Videogame: 
@@ -254,7 +255,7 @@ export async function getPlatformById(id:number) {
 
 //USERS Table
 //Create a user
-export async function CreateUser(User: 
+export async function createUser(User: 
     { userName: string,
       userEmail: string,
       userPassword: string,
@@ -308,7 +309,7 @@ export async function CreateUser(User:
         }
     };
     //Update Userby id
-export async function updateUserByID(
+export async function updateUserById(
     id:number,
     updates: Partial< {
       userName: string,
@@ -426,7 +427,7 @@ export async function getReviewById(id:number) {
 };
 //Update a review by ID
 
-export async function updateReviewByID(
+export async function updateReviewById(
     id:number,
     updates: Partial <{
         Comment: string,
@@ -453,7 +454,7 @@ export async function updateReviewByID(
     }
 };
 //Remove review
-export async function deleteReviewByID(id:number) {
+export async function deleteReviewById(id:number) {
     try{
         const db = await dbPromise;
         const query = `DELETE FROM Reviews WHERE id = ?`;
@@ -596,7 +597,7 @@ export async function deleteCompanyByID(id:number) {
 ********************************/
 //VideogamesPlataforms Table
 //Add a videogame to a platform
-export async function addVideogameToPlataform(videogameId:number, plataformsId: number) {
+export async function addVideogameToPlatform(videogameId:number, plataformsId: number) {
     const db = await dbPromise;
 
     try{
@@ -612,7 +613,7 @@ export async function addVideogameToPlataform(videogameId:number, plataformsId: 
 
 //Get All platforms associated with one game
 
-export async function getPlataformsForVideogames(videogameId:number) {
+export async function getPlatformsForVideogames(videogameId:number) {
     const db = await dbPromise;
 
     try{
@@ -630,7 +631,7 @@ export async function getPlataformsForVideogames(videogameId:number) {
     }
 };
 // Get All Videogames associated with one platform
-export async function getVideoGamesForPlataforms(plataformId:number) {
+export async function getVideoGamesForPlatforms(plataformId:number) {
     const db = await dbPromise;
 
     try{
