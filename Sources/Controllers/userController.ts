@@ -6,14 +6,16 @@ import {createUser,
         deleteUserById} 
         from '../../ts/CRUD';
     
-export const createNewUser =  async(req: Request, res: Response) => {
+export const createNewUser =  async(req: Request, res: Response): Promise<void>  => {
     try{
         const {userName, userEmail, userPassword, userPhone} = req.body;
         if(!userName || !userEmail || !userPassword || !userPhone){
-            return res.status(400).json({mesage: "All the fields are required to create a new user"});
+            res.status(400).json({mesage: "All the fields are required to create a new user"});
+            return;
         }
         if(isNaN(Number(userPhone)) || !Number.isInteger(Number(userPhone))){
-            return res.status(400).json({ message: "Invalid phone number format" });
+            res.status(400).json({ message: "Invalid phone number format" });
+            return;
         }
         const newUser = {
             userName: String(userName),
@@ -29,7 +31,7 @@ export const createNewUser =  async(req: Request, res: Response) => {
     }
 };
 
-export const getAllExistingUsers = async(req:Request, res: Response) => {
+export const getAllExistingUsers = async(req:Request, res: Response): Promise<void>  => {
     try{
         const users = await getAllUsers();
         res.status(200).json(users);
@@ -39,28 +41,31 @@ export const getAllExistingUsers = async(req:Request, res: Response) => {
     }
 };
 
-export const getUserByID = async(req:Request, res:Response) => {
+export const getUserByID = async(req:Request, res:Response): Promise<void>  => {
     try{
         const id =  parseInt(req.params.id, 10);
         if(isNaN(id)){
             res.status(400).json({errror: 'Please enter a valid number for the ID'})
+            return;
         }
         const user = await getUserById(id);
         if(!user){
             res.status(404  ).json({error: `Error trying to find the user with id: ${id}`})
+            return;
         }
-        res.status().json(user);
+        res.status(200).json(user);
     }catch(error){
         console.error('Error reading the user:', error);
         res.status(500).json({error: `Error finding the user with this ID }`});
     }
 };
 
-export const updateUserByID = async(req:Request, res:Response) => {
+export const updateUserByID = async(req:Request, res:Response): Promise<void>  => {
     try{
         const id = parseInt(req.params.id, 10);
         if(isNaN(id)){
-          return res.status(400).json({errror: 'Please enter a valid number for the ID'});
+            res.status(400).json({errror: 'Please enter a valid number for the ID'});
+            return;
         }
         const {
             userName,
@@ -70,11 +75,13 @@ export const updateUserByID = async(req:Request, res:Response) => {
         } = req.body;
 
         if(!userName || !userEmail || !userPassword || !userPhone){
-            return res.status(400).json({error: 'Cannot have fields in blank when is trying to update a user'});
+            res.status(400).json({error: 'Cannot have fields in blank when is trying to update a user'});
+            return
         }
 
         if(isNaN(userPhone) || !Number.isInteger(Number(userPhone))){
-            return res.status(400).json({error: 'Invalid phone format'});
+            res.status(400).json({error: 'Invalid phone format'});
+            return;
         }
 
         const updates = {userName: String(userName),
@@ -92,11 +99,12 @@ export const updateUserByID = async(req:Request, res:Response) => {
         }
     };
      
-export const deleteUserByID = async(req:Request, res:Response) => {
+export const deleteUserByID = async(req:Request, res:Response): Promise<void>  => {
     try{
         const id = parseInt(req.params.id, 10);
         if(isNaN(id)){
             res.status(400).json({error: 'Please enter a valud Number in the id you want to delete'});
+            return;
         }
         await deleteUserById(id);
         res.status(200).json({message: `Successfully deleted user with ID ${id}`});

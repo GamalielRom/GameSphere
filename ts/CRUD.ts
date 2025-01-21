@@ -10,13 +10,13 @@ export async function CreateVideogame(Videogame:
                 const query = `
                     INSERT INTO Videogames
                     (gameName, Description, Image, PlayStation_Link,Steam_Link,Nintendo_Link,Xbox_Link, game_page_link, critic_rating, user_rating, trophies, Trailer, players, company_id)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);;
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 `;
                 const values = Object.values(Videogame)
                 await db.run(query, values);
                 console.log('Videogame added successfully');
             }catch(error){
-                console.error('Cant add this videogame please try again', error.message);
+                console.error('Cant add this videogame please try again', (error as Error).message);
             }
         };
         //Read all videogames
@@ -31,7 +31,7 @@ export async function getAllVideogames() {
         const videogames = await db.all(query);
         return videogames;
     }catch(error){
-        console.error('Impossible to read all the videogames', error.message);
+        console.error('Impossible to read all the videogames', (error as Error).message);
         return [];
     }
 };
@@ -48,7 +48,7 @@ export async function getVideogameByID(id:number) {
         const videogame = await db.get(query, id);
         return videogame;
     }catch(error){
-        console.error('Impossible to select the videogame', console.error);
+        console.error('Impossible to select the videogame', (error as Error).message);
         return [];
     }
 }
@@ -94,7 +94,7 @@ export async function updateVideogameByID(
             await db.run(query, values);
             console.log(`Videogame with the id of ${id} Updated`);
         } catch(error){
-            console.error(`Impossible to find this videogame ${id}`, error.message);
+            console.error(`Impossible to find this videogame ${id}`, (error as Error).message);
         }
 
       };
@@ -116,7 +116,7 @@ export async function deleteVideogameByID(id:number): Promise<void> {
         
     }
     catch(error){
-        console.error('Error deleting the videogame:', error.message);
+        console.error('Error deleting the videogame:',(error as Error).message);
         throw Error;
     }
 };
@@ -148,7 +148,7 @@ export async function createGenre(
                 console.error('Genre already exists');
             }
             else{
-                console.log('Error trying to add a genre', error.message);
+                console.log('Error trying to add a genre', (error as Error).message);
                 throw new Error('Failed to create genre');
             }
         }
@@ -157,13 +157,14 @@ export async function createGenre(
 //Read all genres
 export async function getAllGenres() {
     try{
-    const db = await dbPromise;
-    const query = `SELECT * FROM Genres ORDER BY game_genre ASC`;
-    const Genres = await db.all(query);
-    return Genres;
+        const db = await dbPromise;
+        const query = `SELECT * FROM Genres`;
+        const result = await db.all(query);
+        console.log('Genres fetched from database:', result);
+        return result;
     }
     catch(error){
-        console.error('Something went wrong trying to read the genres', error.message);
+        console.error('Something went wrong trying to read the genres',(error as Error).message);
         return [];
     }
 };
@@ -181,7 +182,7 @@ export async function getGenreByID(id:number) {
     return Genre;
     }
     catch(error){
-        console.error('Something went wrong reading that genre please try again or check if the genre exists', error.message);
+        console.error('Something went wrong reading that genre please try again or check if the genre exists',(error as Error).message);
         return [];
     }
 };
@@ -229,7 +230,7 @@ export async function deleteGenreByID(id:number) {
         console.log('Genres Deleted Sucessfully')
     }
     catch(error){
-        console.error('Error deleting the genre:', error.message);
+        console.error('Error deleting the genre:',(error as Error).message);
     }
 }
 //Platform Table 
@@ -237,17 +238,20 @@ export async function getAllPlatform()
     {
         try{
             const db = await dbPromise;
-            return db.all(`Select * FROM Plataforms`);
+            const query = `Select * FROM Plataforms`;
+            const result = await db.all(query);
+            return result
         }catch(error){
-            
-            console.log('Error reading the table', error.message);
+            console.error('Error reading the table', (error as Error).message);
         }
     };
 
 export async function getPlatformById(id:number) {
     try{
         const db = await dbPromise;
-        return db.get(`SELECT * FROM Plataforms WHERE id = ?;`);
+        const query = `SELECT * FROM Plataforms WHERE id = ?;`;
+        const result = await db.all(query, id);
+        return result;        
     }catch(error){
         console.error(`The id: ${id} does not exist`);
     }
@@ -279,7 +283,7 @@ export async function createUser(User:
                 await db.run(query, values);
                 console.log('User added successfully');
             }catch(error){
-                console.error('Cant add the user please try again', error.message);
+                console.error('Cant add the user please try again',(error as Error).message);
             }
         };
       //Read all Users
@@ -290,7 +294,7 @@ export async function createUser(User:
             const users = await db.all(query);
             return users;
         }catch(error){
-         console.error('Impossible to find all the users');
+         console.error('Impossible to find all the users', (error as Error).message);
          return [];   
         }
     };
@@ -304,7 +308,7 @@ export async function createUser(User:
             return user;
         }catch(error)
         { 
-            console.error('Impossible to find this user', error.message)
+            console.error('Impossible to find this user',(error as Error).message);
             return [];
         }
     };
@@ -338,7 +342,7 @@ export async function updateUserById(
             await db.run(query, values);
             console.log(`User with the id of ${id} Updated`);
         } catch(error){
-            console.error('Error updating the user:', error.message);
+            console.error('Error updating the user:', (error as Error).message);
         }
       };
 
@@ -354,7 +358,7 @@ export async function updateUserById(
             console.log('User Deleted Sucessfully')
         }
         catch(error){
-            console.error('Error deleting the User:', error.message);
+            console.error('Error deleting the User:', (error as Error).message);
         }
     };
 //Review Table
@@ -381,7 +385,7 @@ export async function createReview(review:{
         await db.run(query,values);
         console.log('Review added successfully');
     }catch(error){
-        console.error('Impossible to add this review', error.message);
+        console.error('Impossible to add this review', (error as Error).message);
     }
 };
 
@@ -400,7 +404,7 @@ export async function getAllReviews() {
         const reviews = await db.all(query);
         return reviews
     }catch(error){
-        console.error('Impossible to read all reviews', error.message);
+        console.error('Impossible to read all reviews', (error as Error).message);
         return [];
     }
 }
@@ -421,7 +425,7 @@ export async function getReviewById(id:number) {
         return review;
     }catch(error)
     { 
-        console.error('Impossible to find this review', error.message)
+        console.error('Impossible to find this review', (error as Error).message);
         return [];
     }
 };
@@ -450,7 +454,7 @@ export async function updateReviewById(
         await db.run(query, values);
         console.log(`Review with ID ${id} Updated successfully`);
     }catch(error){
-        console.error('Error updating the Review', error.message);
+        console.error('Error updating the Review', (error as Error).message);
     }
 };
 //Remove review
@@ -461,35 +465,35 @@ export async function deleteReviewById(id:number) {
         await db.run(query, id);
         console.log(`Record with id of ${id} removed successfully`);
     }catch(error){
-        console.error('Impossible to remove this record',error.message);
+        console.error('Impossible to remove this record', (error as Error).message);
     }
 };
 
 //Companies TABLE
 //Create Company 
 
-export async function createCompany(company:{
-    company_name: string
-}) {
+export async function createCompany(
+    company_name: string) {
     try{
         const db = await dbPromise;
         const query = 
         `
         INSERT INTO Companies (company_name)
-        VALUES (?);
+        VALUES (?)
         `
-        const values = [
-            company.company_name
-        ];
-        const  result = await db.run(query,values);
+        const  result = await db.run(query,[company_name]);
         console.log('Company added successfully');
-        return result.lastID
+        return {id: result.lastID,company_name: company_name };
     }catch(error){
-        if(error.message.includes('UNIQUE constraint failed')){
-            console.error('The company name already exists')
-        }else{
+      if(error instanceof Error){
+        if (error.message.includes('UNIQUE constraint failed')) {
+            console.error('The company name already exists');
+        } else {
             console.error('Impossible to add this company', error.message);
-        }
+        };
+      }else {
+        console.error('An unknown error occurred', error);
+    };
     }
 };
 
@@ -505,7 +509,7 @@ export async function getAllCompanies() {
         const companies = await db.all(query);
         return companies
     }catch(error){
-        console.error('Impossible to read all companies', error.message);
+        console.error('Impossible to read all companies', (error as Error).message);
         return [];
     }
 }
@@ -527,7 +531,7 @@ export async function getCompanyByID(id:number) {
         return company;
     }catch(error)
     { 
-        console.error('Impossible to find this review', error.message)
+        console.error('Impossible to find this review', (error as Error).message)
         throw new Error('Could not fetch the company. Please try again later.');
     }
 };
@@ -564,7 +568,7 @@ export async function updateCompanyByID(
         console.log(`Company with ID ${id} Updated successfully`);
         return result.changes;
     }catch(error){
-        console.error('Error updating the Company', error.message);
+        console.error('Error updating the Company', (error as Error).message);
         throw new Error('Failed to update the company. Please try again');
     }
 };
@@ -588,7 +592,7 @@ export async function deleteCompanyByID(id:number) {
         console.log(`Record with id of ${id} removed successfully`);
         return result.changes;
     }catch(error){
-        console.error('Impossible to remove this record',error.message);
+        console.error('Impossible to remove this record', (error as Error).message);
         throw new Error('Impossible to remove this company. Please try again');
     }
 };
@@ -607,47 +611,48 @@ export async function addVideogameToPlatform(videogameId:number, plataformsId: n
         );
         console.log(`Videogame ${videogameId} successfully linked to ${plataformsId}`);
     }catch(error){
-        console.error('Error linking videogame to the plataform',error.message);
+        console.error('Error linking videogame to the plataform', (error as Error).message);
     }
 };
 
 //Get All platforms associated with one game
 
 export async function getPlatformsForVideogames(videogameId:number) {
-    const db = await dbPromise;
-
     try{
-        const plataforms = db.all(
-            `SELECT plataform_name * FROM Plataforms
-             INNER JOIN VideogamesPlataforms ON Plataform.id = VideogamesPlataforms.plataformsId
-             WHERE VideogamePlataform.videogameId = ?'
-            `,
-            [videogameId]
-        );
-        return plataforms
+        const db = await dbPromise;
+        const query = 
+            `SELECT Plataforms.plataform_name, Videogames.gameName 
+			 FROM Plataforms
+             INNER JOIN VideogamesPlataforms ON Plataforms.id = VideogamesPlataforms.plataformsId
+			 INNER JOIN Videogames ON VideogamesPlataforms.videogameId = Videogames.id
+             WHERE VideogamesPlataforms.videogameId = ?;
+            `;
+        const result = await db.all(query, [videogameId]);
+        console.log('platforms from game fetched from database:', result); 
+        return result;
     }catch(error){
-        console.error('ERROR Fetching plataforms for a videogame', error.message);
+        console.error('ERROR Fetching platforms for a videogame', (error as Error).message);
         return [];
     }
 };
 // Get All Videogames associated with one platform
 export async function getVideoGamesForPlatforms(plataformId:number) {
-    const db = await dbPromise;
-
     try{
-        const videogames = await db.all(
-            `SELECT gameName * FROM Videogame
-             INNER JOIN VideogamesPlataforms ON Videogame.id = VideogamesPlataforms.videogameId
-             WHERE VideogamesPlataforms.plataformId = ?
-            `,
-            [plataformId]
-        );
-        return videogames;
+        const db = await dbPromise;
+        const query = 
+            `SELECT gameName, Plataforms.plataform_name FROM Videogames
+             INNER JOIN VideogamesPlataforms ON Videogames.id = VideogamesPlataforms.videogameId
+			 INNER JOIN Plataforms ON VideogamesPlataforms.plataformsId = Plataforms.id
+             WHERE VideogamesPlataforms.plataformsId = ?
+            `;
+        const result = await db.all(query, [plataformId]);
+        console.log('games for platforms  fetched from database:', result); 
+        return result;
     }catch(error){
-        console.error('ERROR fetching Videogames for PLataforms', error.message);
+        console.error('ERROR fetching Videogames for PLatforms',(error as Error).message);
         return [];
     }
-}
+};
 
 //Delete relations from a videogame to a platform
 
@@ -662,16 +667,15 @@ export async function RemoveVideogameFromPlatForm(videogamesId:number, platformI
         console.log(`Videogame ${videogamesId} successfully unlinked to ${platformId}`)
     }
     catch(error){
-        console.error('Error unlinking videogame from platform', error.message);
+        console.error('Error unlinking videogame from platform', (error as Error).message);
     }
 }
 
 //User_Favorites Table 
 
 export async function addUserFavorites(userId:number, videogameId: number) {
-    const db = await dbPromise;
-
     try{
+        const db = await dbPromise;
         await db.run(
             `INSERT INTO User_Favorites (User_id, Videogame_id) VALUES (?, ?)`,
             [userId, videogameId]
@@ -679,26 +683,25 @@ export async function addUserFavorites(userId:number, videogameId: number) {
         console.log(`User ${userId} added this videogame ${videogameId} to favorites list`);
     }
     catch(error){
-        console.error('Error adding this videogame to favorite list please try again later', error.message);
+        console.error('Error adding this videogame to favorite list please try again later',(error as Error).message);
     }
 }
 
 //READ all favorites game for user
 export async function getAllFavoritesForUser(userId:number) {
-    const db = await dbPromise;
-    
     try{
-        const favorites = await db.run(
-            `SELECT Videogame. * FROM Videogames
-             INNER JOIN User_Favorites ON Videogame.id = User_Favorites.Videogame_id
-             WHERE User_Favorites.User_id = ?
-            `,
-            [userId]
-        )
-        return favorites
+        const db = await dbPromise;
+        const query = `SELECT Videogames.*, Users.userName AS username
+                        FROM Videogames
+                        INNER JOIN User_Favorites ON Videogames.id = User_Favorites.Videogame_id
+                        INNER JOIN Users ON User_Favorites.User_id = Users.id
+                        WHERE User_Favorites.User_id = ?`;
+        const result = await db.all(query, [userId]);
+        console.log('user Favorite fetched from database:', result);
+        return result;
     }
     catch(error){
-        console.error('Error reading the favorites for user', error.message);
+        console.error('Error reading the favorites for user', (error as Error).message);
         return [];
     }
 }
@@ -717,7 +720,7 @@ export async function removeUserFavorite(userId:number, videogameId: number) {
         console.log(`Videogame ${videogameId} successfully removed from user ${userId}'s favorites`);
     }
     catch(error){
-        console.error('Error removing videogame from user favorites list', error.message);
+        console.error('Error removing videogame from user favorites list', (error as Error).message);
     }
 }
 
@@ -727,15 +730,11 @@ export async function AddGenreToVideogame(videogameId:number, genreId: number) {
     const db = await dbPromise;
 
     try{
-
-       await db.run( `
-            INSERT INTO VideogamesGenre (videogameId, genresId) VALUES (?, ?)
-            `,
-            [videogameId, genreId]
-        )
+        const query = 'INSERT INTO VideogamesGenres (videogameId, genreId) VALUES (?, ?)';
+        await db.run(query, [videogameId, genreId]);
         console.log(`Added genre ${genreId} to ${videogameId}`);
     }catch(error){
-        console.error('Error adding the genre to this videogame', error.message);
+        console.error('Error adding the genre to this videogame', (error as Error).message);
     }
 }
 
@@ -754,27 +753,25 @@ export async function removeVideogameGenre(videogameId:number, genreId: number) 
         console.log(`Removed Genre ${genreId} from ${videogameId}`);
     }
     catch(error){
-        console.error('Error removing genre from videogame', error.message);
+        console.error('Error removing genre from videogame', (error as Error).message);
     }
 }
 
 //Select Genres for videogame
 
 export async function getGenresForVideogame(videogameId:number) {
-    const db = await dbPromise;
 
     try{
-        const genres = db.run(
-            `
-            SELECT Genre.* FROM Genres
-            INNER JOIN VideogamesGenre ON Genres.id = VideogamesGenre.genresId
-            WHERE VideogamesGenre.videogameId = ?
-            `,
-            [videogameId]
-        );
-        return genres;
+        const db = await dbPromise;
+        const query = `SELECT Videogames.gameName, Genres.game_genre FROM Videogames
+			INNER JOIN VideogamesGenre ON Videogames.id = VideogamesGenre.videogameId
+			INNER JOIN Genres ON VideogamesGenre.genresId = Genres.id
+			WHERE Videogames.id = ?`;
+        const result =  await db.all(query, [videogameId]);   
+        console.log('genres from game fetched from database:', result); 
+        return result;
     }catch(error){
-        console.error('Error selecting genres for videogame', error.message);
+        console.error('Error selecting genres for videogame', (error as Error).message);
         return [];
     }
 };

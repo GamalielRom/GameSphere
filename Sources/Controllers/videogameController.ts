@@ -1,8 +1,9 @@
 import {Request, Response} from 'express';
 import {CreateVideogame, getAllVideogames, getVideogameByID, updateVideogameByID, deleteVideogameByID} from '../../ts/CRUD'
+import { error } from 'console';
 
 
-export const createGame = async(req: Request, res:Response) => {
+export const createGame = async(req: Request, res:Response): Promise<void>  => {
     try{
             const {
                 gameName,
@@ -21,7 +22,8 @@ export const createGame = async(req: Request, res:Response) => {
                 company_id
             } = req.body;
             if(!gameName || !Description || !Image || !company_id){
-                return res.status(400).json({error: 'Missing required fields'})
+                res.status(400).json({error: 'Missing required fields'})
+                return;
             };
             const values = [
                 gameName,
@@ -48,7 +50,7 @@ export const createGame = async(req: Request, res:Response) => {
     };
     
     
-export const getAllgames = async(req: Request, res: Response) =>{
+export const getAllgames = async(req: Request, res: Response): Promise<void>  =>{
     try{
         const videogames = await getAllVideogames();
         res.status(200).json(videogames);
@@ -57,24 +59,29 @@ export const getAllgames = async(req: Request, res: Response) =>{
     }
 };
 
-export const getGameByID = async (req: Request, res: Response) => {
+export const getGameByID = async (req: Request, res: Response): Promise<void>  => {
     try{
         const id = parseInt(req.params.id, 10);
+        if(isNaN(id)){
+            res.status(404).json({error: 'Please enter a valid ID'});
+        }
         const game = await getVideogameByID(id);
         if(!game){
-            return res.status(404).json({error: 'Game Not Found'});
+            res.status(404).json({error: 'Game Not Found'});
+            return;
         }
-        res.status().json(game);
+        res.status(200).json(game);
     }catch(error){
         res.status(500).json({error: 'Could not fetch the videogame'});
     }
 };
 
-export const updateGameByID =  async(req: Request, res: Response) => {
+export const updateGameByID =  async(req: Request, res: Response): Promise<void>  => {
     try{
         const id = parseInt(req.body.id, 10);
         if(isNaN(id)){
-            return res.status(400).json({error: 'Missing the Videogame ID'});
+            res.status(400).json({error: 'Missing the Videogame ID'});
+            return;
         };
         const {
             gameName,
@@ -93,7 +100,8 @@ export const updateGameByID =  async(req: Request, res: Response) => {
             company_id
         } = req.body;
         if(!gameName || !Description || company_id == null){
-            return res.status(400).json({error: 'Missing required fields'})
+            res.status(400).json({error: 'Missing required fields'});
+            return;
         };
         const updates: Partial<{
             gameName: string;
@@ -136,17 +144,19 @@ export const updateGameByID =  async(req: Request, res: Response) => {
     }
 };
 
-export const deleteGameByID = async(req: Request, res: Response) => {
+export const deleteGameByID = async(req: Request, res: Response): Promise<void>  => {
     try{
         const id = parseInt(req.params.id, 10);
         if(isNaN(id)){
-            return res.status(400).json({error: 'Missing the Videogame ID'});
+            res.status(400).json({error: 'Missing the Videogame ID'});
+            return;
         }
         await deleteVideogameByID(id);
         res.status(200).json({message: `Videogame with ID ${id} deleted sucessfully`});
     }catch(error: any){
         if(error.message.includes('Does not exist')){
-            return res.status(404).json({error: error.message});
+            res.status(404).json({error: error.message});
+            return;
         }
         res.status(500).json({error: 'Could not delete the videogame'});
     }

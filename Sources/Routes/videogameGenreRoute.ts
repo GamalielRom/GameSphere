@@ -9,7 +9,7 @@ from '../Controllers/videogameGenreController';
 const router = express.Router();
 
 router.post('/', addGenreToGame);
-router.get('/:id', getGenresforGame);
+router.get('/:videogameId', getGenresforGame);
 router.delete('/', removeGenreFromVideogame);
 
 export default router;

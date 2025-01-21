@@ -1,11 +1,12 @@
 import {Request, Response} from 'express';
 import {addVideogameToPlatform, getPlatformsForVideogames, getVideoGamesForPlatforms, RemoveVideogameFromPlatForm} from '../../ts/CRUD';
 
-export const addGameToPlatform = async(req: Request, res: Response) => {
+export const addGameToPlatform = async(req: Request, res: Response): Promise<void>  => {
     try{
         const {videogameId, plataformId} = req.body
         if(!videogameId || isNaN(videogameId) || !plataformId || isNaN(plataformId)){
-            return res.status(400).json({error: 'Both the videogameId and platformId are required and should be numbers'});
+            res.status(400).json({error: 'Both the videogameId and platformId are required and should be numbers'});
+            return;
         }
         await addVideogameToPlatform(videogameId, plataformId);
         res.status(201).json({message:`Videogame ${videogameId} assigned to platform: ${plataformId}`});
@@ -15,11 +16,12 @@ export const addGameToPlatform = async(req: Request, res: Response) => {
     }
 };
 
-export const getAllPLatformForGame = async(req: Request, res: Response) => {
+export const getAllPLatformForGame = async(req: Request, res: Response): Promise<void>  => {
     try{
         const id = parseInt(req.params.id, 10);
         if(isNaN(id)){
-            return res.status(400).json({error:'Invalid videogameID'});
+            res.status(400).json({error:'Invalid videogameID'});
+            return;
         }
         const platform = await getPlatformsForVideogames(id);
         res.status(200).json(platform);
@@ -32,11 +34,12 @@ export const getAllPLatformForGame = async(req: Request, res: Response) => {
     }
 };
 
-export const getGamesForPlatforms = async(req: Request, res: Response) => {
+export const getGamesForPlatforms = async(req: Request, res: Response): Promise<void>  => {
     try{
         const id =  parseInt(req.params.id, 10);
         if(isNaN(id)){
-            return res.status(400).json({error:'Invalid PlatformID'})
+            res.status(400).json({error:'Invalid PlatformID'});
+            return;
         }
         const videogames = await getVideoGamesForPlatforms(id);
         res.status(200).json(videogames);
@@ -49,11 +52,12 @@ export const getGamesForPlatforms = async(req: Request, res: Response) => {
     }
 };
 
-export const removeGameFromPlatform = async(req: Request, res: Response) => {
+export const removeGameFromPlatform = async(req: Request, res: Response): Promise<void>  => {
     try{
         const {videogameId, plataformsId} = req.body;
         if(!videogameId || isNaN(videogameId) || !plataformsId || isNaN(plataformsId)){
-            return res.status(400).json({error:'Both the videogameID and platformID are required to remove a relationship'});  
+            res.status(400).json({error:'Both the videogameID and platformID are required to remove a relationship'});  
+            return;
         }
         await RemoveVideogameFromPlatForm(videogameId, plataformsId);
         res.status(200).json({message: `videogame with id: ${videogameId} sucessfully eliminated from platform: ${plataformsId}`});
