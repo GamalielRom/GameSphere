@@ -41,13 +41,13 @@ export const getGenresforGame = async(req:Request, res: Response): Promise<void>
 
 export const removeGenreFromVideogame = async(req: Request, res: Response): Promise<void>  => {
     try{
-        const {videogameId, gernesId} = req.body;
-        if(!videogameId || isNaN(videogameId) || !gernesId || isNaN(gernesId)){
+        const {videogameId, genresId} = req.body;
+        if(!videogameId || isNaN(videogameId) || !genresId || isNaN(genresId)){
             res.status(400).json({error:'Both the videogameId and GenreId are required to remove a relationship'});  
             return;
         };
-        await removeVideogameGenre(videogameId, gernesId);
-        res.status(200).json({message: `Genre with id: ${gernesId} sucessfully eliminated from videogame: ${videogameId}`});
+        await removeVideogameGenre(videogameId, genresId);
+        res.status(200).json({message: `Genre with id: ${genresId} sucessfully eliminated from videogame: ${videogameId}`});
     }catch(error:any){
         if(String(error).includes('CONSTRAINT FAILED')){
             res.status(500).json({error: 'Something went wrong with the ids, are you sure your removing the correct genres?'});

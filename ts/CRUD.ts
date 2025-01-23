@@ -751,7 +751,7 @@ export async function removeVideogameGenre(videogameId:number, genreId: number) 
     try{
         db.run(
             `
-            DELETE FROM VideogamesGenre WHERE videogameId = ? AND genreId = ?
+            DELETE FROM VideogamesGenre WHERE videogameId = ? AND genresId = ?
             `,
             [videogameId, genreId]
         );
