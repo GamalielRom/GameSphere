@@ -419,12 +419,11 @@ export async function getReviewById(id:number) {
     try{
         const db = await dbPromise;
         const query = 
-        `
-        Select Reviews. * Users.userName, Videogames.gameName
-        FROM Reviews
-        JOIN Users ON Reviews.User_id = Users.id
-        JOIN Videogames ON Reviews.Videogame_id = Videogames.id
-        WHERE Reviews.id = ?;
+        `Select r.*, u.userName, v.gameName
+        FROM Reviews r
+        JOIN Users u ON r.User_id = u.id
+        JOIN Videogames v ON r.Videogame_id = v.id
+        WHERE r.id = ?;
         `;
         const review = await db.get(query, id);
         return review;
