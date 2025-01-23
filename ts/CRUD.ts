@@ -190,7 +190,9 @@ export async function getGenreByID(id:number) {
 
 export async function updateGenreByID( 
     id:number,
-    updates: {game_genre: string})
+    updates: Partial < {
+        game_genre: string
+    }>)
         {
         try{
         const db = await dbPromise;
@@ -202,14 +204,17 @@ export async function updateGenreByID(
         if(!genreExist){
             throw new Error(`Genre with ${id} does not exist`);
         }
-        
+        const fields = Object.keys(updates)
+            .map((key) => `${key} = ?`)
+            .join(', ');
+        const values = [...Object.values(updates), id];
         const query = `UPDATE Genres SET game_genre =? WHERE id = ?;`;
-        const result = await db.run(query, [updates.game_genre]);
+        const result = await db.run(query, values);
         if(result.changes === 0){
             return null;
         }
         console.log(`Genre with the id of ${id} Updated`);
-        return {id, ...updates};
+        return result;
     } catch(error: any){
         console.error('Error updating the genre:', error.message);
         throw error;
@@ -328,8 +333,8 @@ export async function updateUserById(
             if(Object.keys(updates).length === 0){
                 throw new Error('Any fields to update');
             }
-            const genreExist =  await db.get(`SELECT 1 FROM Users WHERE id  = ?`, id);
-            if(!genreExist){
+            const userExist =  await db.get(`SELECT 1 FROM Users WHERE id  = ?`, id);
+            if(!userExist){
                 throw new Error(`User with ${id} does not exist`);
             }
     
@@ -602,14 +607,14 @@ export async function deleteCompanyByID(id:number) {
 //VideogamesPlataforms Table
 //Add a videogame to a platform
 export async function addVideogameToPlatform(videogameId:number, plataformsId: number) {
-    const db = await dbPromise;
-
+    
     try{
-        await db.run(
-            `INSERT INTO VideogamesPlataforms (videogame_id, plataform_id) VALUES (?,?)`,
-            [videogameId, plataformsId]
-        );
+        const db = await dbPromise;
+        const query = 
+            `INSERT INTO VideogamesPlataforms (videogameId, plataformsId) VALUES (?,?)`
+        const result = db.all(query, videogameId, plataformsId);
         console.log(`Videogame ${videogameId} successfully linked to ${plataformsId}`);
+        return result;
     }catch(error){
         console.error('Error linking videogame to the plataform', (error as Error).message);
     }
@@ -730,7 +735,7 @@ export async function AddGenreToVideogame(videogameId:number, genreId: number) {
     const db = await dbPromise;
 
     try{
-        const query = 'INSERT INTO VideogamesGenres (videogameId, genreId) VALUES (?, ?)';
+        const query = 'INSERT INTO VideogamesGenre (videogameId, genresId) VALUES (?, ?)';
         await db.run(query, [videogameId, genreId]);
         console.log(`Added genre ${genreId} to ${videogameId}`);
     }catch(error){

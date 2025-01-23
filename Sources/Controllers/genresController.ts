@@ -61,10 +61,12 @@ export const updateGenreById = async(req: Request, res: Response): Promise<void>
             res.status(400).json({error: 'Missing the only field'});
             return;
         };
-        const updates = {
-            game_genre: game_genre, // Asegurarnos de que es un string limpio
+        const updates: Partial< {
+            game_genre: string
+        }> = {
+            game_genre
         };
-        const updateGenre = await updateGenreByID(id, updates);
+        const updateGenre = await updateGenreByID(Number(id), updates);
         if (!updateGenre) {
             res.status(404).json({ error: `Genre with ID ${id} not found` });
             return;
