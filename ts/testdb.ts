@@ -39,7 +39,7 @@ import { createCompany, deleteCompanyByID, getAllCompanies, getCompanyByID, getV
 })();
 
 //Test CRUD
-
+/*
 async function testCRUDCompany() {
     try{
         const companyCreate = await createCompany({ company_name: 'Naughty Dogs' });
@@ -72,4 +72,4 @@ async function testCRUDCompany() {
 }
 
 testCRUDCompany();
-
+*/

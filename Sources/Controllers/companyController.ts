@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import {Request, Response, NextFunction} from 'express';
 import {createCompany, 
         getAllCompanies, 
         getCompanyByID, 
@@ -6,21 +6,22 @@ import {createCompany,
         deleteCompanyByID} 
         from '../../ts/CRUD';
 
-export const createCompanies =  async(req: Request, res:Response) => {
+export const createCompanies =  async(req: Request, res:Response, next: NextFunction): Promise<void> => {
     try{
         const {company_name} = req.body;
         if(!company_name){
-            return res.status(400).json({error: 'The only field required'});
+            res.status(400).json({error: 'The only field required'});
+            return;
         }
         const newCompany = await createCompany(company_name);
-        res.status(201).json({message: 'company created successfully', company: newCompany});
+        res.status(201).json({message: 'Company created successfully', company: newCompany});
     }catch(error){
-        console.error('Error creating company:', error);
+        console.error('Error creating company:', (error as Error).message);
         res.status(500).json({error: 'Impossible to create the company'});
     }
 };
 
-export const getAllExistingCompanies = async(req: Request, res: Response) =>{
+export const getAllExistingCompanies = async(req: Request, res: Response): Promise<void>  =>{
     try{
          const companies = await getAllCompanies();
         res.status(200).json(companies);
@@ -29,15 +30,17 @@ export const getAllExistingCompanies = async(req: Request, res: Response) =>{
     }
 };
 
-export const getCompanyById = async(req: Request, res: Response) => {
+export const getCompanyById = async(req: Request, res: Response, next: NextFunction): Promise<void>  => {
      try{
             const id = parseInt(req.params.id, 10);
             if(isNaN(id)){
-                return res.status(400).json({ error: 'Invalid Company ID' });
+                res.status(400).json({ error: 'Invalid Company ID' });
+                return;
             }
             const company = await getCompanyByID(id);
             if(!company){
-                return res.status(404).json({error: 'company Not Found'});
+                res.status(404).json({error: 'company Not Found'});
+                return;
             } 
             res.status(200).json(company);
         }catch(error){
@@ -45,37 +48,42 @@ export const getCompanyById = async(req: Request, res: Response) => {
         }
 };
 
-export const updateCompanyById = async(req: Request, res: Response) => {
+export const updateCompanyById = async(req: Request, res: Response, next: NextFunction): Promise<void>  => {
      try{
             const id = parseInt(req.params.id, 10);
             if(isNaN(id)){
-                return res.status(400).json({error: 'Missing the Genre ID'});
+                res.status(400).json({error: 'Missing the Genre ID'});
+                return;
             };
             const {company_name} = req.body;
             if(!company_name || typeof company_name !== 'string'){
-                return res.status(400).json({error: 'Missing the only field, or invalid type of input'});
+                res.status(400).json({error: 'Missing the only field, or invalid type of input'});
+                return;
             };
             const updates = { company_name };
             const updateCompany = await updateCompanyByID(id, updates);
             if (!updateCompany) {
-                return res.status(404).json({ error: `Company with ID ${id} not found` });
+                res.status(404).json({ error: `Company with ID ${id} not found` });
             }
             res.status(201).json({message: 'Company updated successfully', company: updateCompany});
+            return;
         }catch(error){
             console.error('Error updating genre:', error);
             res.status(500).json({error: 'Impossible to update the company'});
         }
 };
 
-export const deleteCompanyById = async(req: Request, res: Response)=> {
+export const deleteCompanyById = async(req: Request, res: Response, next: NextFunction): Promise<void>  => {
     try{
         const id = parseInt(req.params.id, 10);
             if(isNaN(id)){
-                return res.status(400).json({error: 'Missing the Company ID'});
+                res.status(400).json({error: 'Missing the Company ID'});
+                return
             }
             const deleted = await deleteCompanyByID(id);
             if(!deleted){
-                return res.status(404).json({error: `Company with the id ${id} does not exist`});
+                res.status(404).json({error: `Company with the id ${id} does not exist`});
+                return
             }
             res.status(200).json({message: `Company with ID ${id} deleted sucessfully`});
         }catch(error){

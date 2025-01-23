@@ -10,8 +10,8 @@ from '../Controllers/videogamePlatformController';
 const router = express.Router();
 
 router.post('/', addGameToPlatform);
-router.get('/:id', getAllPLatformForGame);
-router.get('/:id', getGamesForPlatforms)
+router.get('/byGame/:id', getAllPLatformForGame);
+router.get('/byPlatform/:id', getGamesForPlatforms)
 router.delete('/', removeGameFromPlatform);
 
 export default router;

@@ -6,7 +6,7 @@ import {createReview,
         deleteReviewById} 
         from '../../ts/CRUD';
 
-export const createNewReview = async(req:Request, res:Response) => {
+export const createNewReview = async(req:Request, res:Response): Promise<void>  => {
     try{
         const {
             User_id,
@@ -15,16 +15,20 @@ export const createNewReview = async(req:Request, res:Response) => {
             Comment
         } = req.body;
         if(isNaN(User_id) || isNaN(Videogame_id)){
-            return res.status(400).json({error: 'Failed creating the Review, videogame or user id missing or have a bad input '});
+            res.status(400).json({error: 'Failed creating the Review, videogame or user id missing or have a bad input '});
+            return;
         }
         if(isNaN(Rating) || Rating < 1 || Rating > 5){
-            return res.status(400).json({error: 'Rating must be between 1 to 5'});
+            res.status(400).json({error: 'Rating must be between 1 to 5'});
+            return;
         }
         if(!Rating || !Comment){
-            return res.status(400).json({error: 'Failed creating the review, missing fields required'});
+            res.status(400).json({error: 'Failed creating the review, missing fields required'});
+            return;
         }
         if (!Comment || typeof Comment !== 'string') {
-            return res.status(400).json({ error: 'Comment is required and must be a valid string.' });
+            res.status(400).json({ error: 'Comment is required and must be a valid string.' });
+            return;
         }
         const newReview = {
             User_id: Number(User_id),
@@ -41,7 +45,7 @@ export const createNewReview = async(req:Request, res:Response) => {
     }
 };
 
-export const getAllExistingReviews = async(req: Request, res: Response) => {
+export const getAllExistingReviews = async(req: Request, res: Response): Promise<void>  => {
     try{
         const reviews = await getAllReviews();
         res.status(200).json(reviews);
@@ -51,15 +55,17 @@ export const getAllExistingReviews = async(req: Request, res: Response) => {
     }
 };
 
-export const getReviewByID = async(req: Request, res: Response) => {
+export const getReviewByID = async(req: Request, res: Response): Promise<void>  => {
     try{
         const id = parseInt(req.params.id, 10);
         if(isNaN(id)){
             res.status(400).json({errror: 'Please enter a valid number for the ID'})
+            return;
         }
         const review = await getReviewById(id);
         if(!review){
             res.status(404).json({error: `Error trying to find the user with id: ${id}`})
+            return;
         }
         res.status(200).json(review);
     }catch(error){
@@ -68,21 +74,24 @@ export const getReviewByID = async(req: Request, res: Response) => {
     }
 };
 
-export const updateReviewByID = async(req: Request, res: Response) => {
+export const updateReviewByID = async(req: Request, res: Response): Promise<void>  => {
     try{
         const id =  parseInt(req.params.id, 10);
         if(isNaN(id)){
-            return res.status(400).json({error: 'Please enter a valid number for the id'});
+            res.status(400).json({error: 'Please enter a valid number for the id'});
+            return;
         };
         const {
             Comment,
             Rating
         } = req.body;
         if(!Comment || !Rating){
-            return res.status(400).json({error: 'Cannot have fields in blank when is trying to update a review'});
+            res.status(400).json({error: 'Cannot have fields in blank when is trying to update a review'});
+            return;
         }
         if (isNaN(Rating) || Rating < 1 || Rating > 5) {
-            return res.status(400).json({ error: 'Rating must be a valid number between 1 and 5.' });
+            res.status(400).json({ error: 'Rating must be a valid number between 1 and 5.' });
+            return;
         }
         const updates = {
             Comment: String(Comment),
@@ -96,11 +105,12 @@ export const updateReviewByID = async(req: Request, res: Response) => {
     }
 };
   
-export const deleteReviewByID = async(req: Request, res: Response) => {
+export const deleteReviewByID = async(req: Request, res: Response): Promise<void>  => {
     try{
         const id = parseInt(req.params.id, 10);
         if(isNaN(id)){
             res.status(400).json({error: 'Please enter a valud Number in the id you want to delete'});
+            return;
         };
         await deleteReviewById(id);
         res.status(200).json({message: `Successfully deleted review with ID ${id}`});
