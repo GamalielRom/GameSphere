@@ -3,13 +3,13 @@ import {addVideogameToPlatform, getPlatformsForVideogames, getVideoGamesForPlatf
 
 export const addGameToPlatform = async(req: Request, res: Response): Promise<void>  => {
     try{
-        const {videogameId, plataformId} = req.body
-        if(!videogameId || isNaN(videogameId) || !plataformId || isNaN(plataformId)){
+        const {videogameId, plataformsId} = req.body
+        if(!videogameId || isNaN(videogameId) || !plataformsId || isNaN(plataformsId)){
             res.status(400).json({error: 'Both the videogameId and platformId are required and should be numbers'});
             return;
         }
-        await addVideogameToPlatform(videogameId, plataformId);
-        res.status(201).json({message:`Videogame ${videogameId} assigned to platform: ${plataformId}`});
+        await addVideogameToPlatform(videogameId, plataformsId);
+        res.status(201).json({message:`Videogame ${videogameId} assigned to platform: ${plataformsId}`});
     }catch(error){
         console.error('error assign videogame to platform', error);
         res.status(500).json({error: 'Could not assign this videogame to the platform please try agian'});
