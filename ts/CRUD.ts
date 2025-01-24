@@ -23,11 +23,16 @@ export async function CreateVideogame(Videogame:
 export async function getAllVideogames() {
     try{
         const db = await dbPromise;
-        const query = ` SELECT v.*, GROUP_CONCAT(g.game_genre, ', ') AS genres
-                        FROM Videogames v
-                        LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
-                        LEFT JOIN Genres g ON gg.videogameId = g.id
-                        GROUP BY v.id;`;
+        const query = ` SELECT 
+                v.*, 
+                GROUP_CONCAT(DISTINCT g.game_genre) AS genres,
+                GROUP_CONCAT(DISTINCT p.plataform_name) AS platforms
+            FROM Videogames v
+            LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
+            LEFT JOIN Genres g ON gg.genresId = g.id
+            LEFT JOIN VideogamesPlataforms vp ON v.id = vp.videogameId
+            LEFT JOIN Plataforms p ON vp.plataformsId = p.id
+            GROUP BY v.id;`;
         const videogames = await db.all(query);
         return videogames;
     }catch(error){
