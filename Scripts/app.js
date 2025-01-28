@@ -35,6 +35,7 @@ function displayGames(games) {
         const name = game.gameName;
         const description = game.Description;
         const image = game.image || 'default-image.jpg';
+        //const imageUrl = "http://localhost:3000/" + game.image;  // Complete image URL
         
         // Extract genres and platforms directly from the game object
         const genres = game.genres || 'No Genres Available';
