@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videogames</title>
+    <title>GameSphere</title>
+    <link rel="stylesheet" href="/CSS/style.css"/>
 </head>
 <body>
+
     <header>
-        <h1>GameSphere</h1>
         <nav>
             <ul>
                 <li><a href="#games">Games</a></li>
@@ -17,13 +18,35 @@
         </nav>
     </header>
 
+
     <main>
+        <!-- Video de fondo -->
+        <div class="video-background">
+        <video autoplay muted loop id="background-video">
+            <source src="path_to_your_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        </div>
+        <div class="container">
+            <h1 class="welcome-message">Welcome to GameSphere!</h1>
+            <p class="platform-message">Select your platform to get started!</p>
+            
+            <div class="buttons-container">
+                <button class="nintendo-button">Nintendo</button>
+                <button class="ps-button">PlayStation</button>
+                <button class="xbox-button">Xbox</button>
+                <button class="pc-button">PC</button>
+            </div>
+        </div>
+        <!--
+        Comented for the moment
         <section id="games">
             <h2>Games List</h2>
             <div id="games-container"></div>
-        </section>
+        </section>-->
+        <footer>&copy; 2025 GameSphere. All rights reserved.</footer>
     </main>
-
+   
     <script src="Scripts/app.js"></script>
 </body>
 </html>

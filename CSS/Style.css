@@ -1,0 +1,148 @@
+/*Default style for the page, font family, margins, etc*/
+/*Font color defaulted to #1C1C1C (almost black, for text color), background color defaulted to #f4f4f4 (light gray)*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    color: #1C1C1C;
+}
+/*El header lo rushee con IA, tengo que revisarlo y hacer ajustes*/
+/* Header begin*/
+header {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: white;
+    padding: 20px;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the header stays on top of other content */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+/*Header finish*/
+
+/* Video background begin */
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Ensures it stays behind other content */
+}
+
+#background-video {
+    object-fit: cover; /* Ensures the video covers the entire screen */
+    width: 100%;
+    height: 100%;
+}
+
+/*Video background finish*/
+
+/*Container that ill display the text in the center (mainly used for index.html)*/
+.container {
+    text-align: center;
+}
+
+/* Welcome message*/
+.welcome-message {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+/* Platform message*/
+.platform-message {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+
+/*Buttons styling begins*/
+
+/*Container for platform buttons*/
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/*General design for each platform button*/
+.buttons-container button{
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: 3px solid transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 180px;
+}
+
+/* Adding color to each platform button  */
+.pc-button {
+    background-color: #37E0B6;
+}
+
+.ps-button {
+    background-color: #006FCD;
+}
+
+.xbox-button {
+    background-color: #0E7A0D;
+}
+
+.nintendo-button {
+    background-color: #E4000F;
+}
+
+.buttons-container button:hover {
+    color: #333;
+    border-color: #333;
+    cursor: pointer;
+}
+/*Buttons styling ends*/
+
+/*Design for the footer*/
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 16px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
