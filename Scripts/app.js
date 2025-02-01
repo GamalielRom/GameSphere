@@ -29,7 +29,7 @@ async function fetchGames() {
 //Tony fixee el problema ahora deberia de estar funcionando pero si podes hacer que esto encuentre con el js los generos por el videojuego fuera increible
 //tecnicamente lee todos los datos si seguis esta logica de todo el codigo podras entender como acceder a todas las apis.
 //te lo dejo para que lo testees todo lo que querras 
-function displayGames(games) {
+/*function displayGames(games) {
     games.forEach(game => {
         console.log('Game:', game);
         const name = game.gameName;
@@ -55,6 +55,57 @@ function displayGames(games) {
         document.body.appendChild(gameContainer);
     });
 }
+*/
+//Adding the fuctunality to the dashbioard page for all videogames
+
+function displayGames(games) {
+    const gameGrid = document.getElementById("gameGrid");
+    gameGrid.innerHTML = "";
+    games.forEach(game => {
+        const name = game.gameName || 'No Name';
+        const image = game.image ? `http://localhost:3000/${game.image}` : 'default-image.jpg';
+        const genres = game.genres || 'No Genres Available';
+
+        console.log(`Gamename: ${name}, Image: ${image}, Genres: ${genres}`);
+        
+        const card = document.createElement("div");
+        card.className = "game-card";
+        /*card.innerHTML = `
+            <img src="${image}" alt="${name}">
+            <h3>${name}</h3>
+            <p><strong>Genres:</strong> ${genres}</p>
+        `;*/
+        card.innerHTML = `
+            <img src="/Images/Shared/The_Last_Of_Us_Part_1_Remastered.jpg" alt="${name}">
+            <h3>${name}</h3>
+            <p><strong>Genres:</strong> ${genres}</p>
+        `;
+        card.onclick = () => window.location.href = `/game-details.html?name=${encodeURIComponent(name)}`;
+        gameGrid.appendChild(card);
+    });
+}
+
+function filterGames() {
+    const search = document.getElementById("search").value.toLowerCase();
+    const genre = document.getElementById("genre").value;
+    fetchGames().then(() => {
+        const filteredGames = Array.from(document.querySelectorAll(".game-card")).filter(card => {
+            const name = card.querySelector("h3").innerText.toLowerCase();
+            const genres = card.querySelector("p").innerText.toLowerCase();
+            return name.includes(search) && (genre === "" || genres.includes(genre.toLowerCase()));
+        });
+        document.getElementById("gameGrid").innerHTML = "";
+        filteredGames.forEach(card => document.getElementById("gameGrid").appendChild(card));
+    });
+}
+
+document.getElementById("search").addEventListener("keyup", filterGames);
+document.getElementById("genre").addEventListener("change", filterGames);
+
+
+
+
+
 /*function displayGames(games,genres,platforms) {
     games.forEach(game => {
         console.log('Game:', game);
