@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function fetchGames() {
     try {
-        const [gamesResponse,] = await Promise.all([
+        const [gamesResponse] = await Promise.all([
             fetch('http://localhost:300/api/videogames')
         ]);
 
@@ -13,14 +13,26 @@ async function fetchGames() {
         }
 
         const games = await gamesResponse.json();
-        //const genres = await genresResponse.json();
-        //const platforms = await platformsResponse.json();
 
         console.log('Games:', games);
-        //console.log('Genres:', genres);
-        //console.log('Platforms:', platforms);
 
-        displayGames(games);
+        // Determine platform based on the current URL
+        //Using windows location to determine the website path
+        const path = window.location.pathname;
+        let platform = "";
+        if (path.includes("/Xbox/")) {
+            platform = "Xbox";
+        } else if (path.includes("/PC/")) {
+            platform = "PC";
+        } else if (path.includes("/PlayStation/")) {
+            platform = "PlayStation";
+        } else if (path.includes("/Nintendo/")) {
+            platform = "Nintendo";
+        }else{
+            platform = null;
+        }
+
+        displayGames(games, platform);
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -58,32 +70,34 @@ async function fetchGames() {
 */
 //Adding the fuctunality to the dashbioard page for all videogames
 
-function displayGames(games) {
+function displayGames(games, platform) {
     const gameGrid = document.getElementById("gameGrid");
     gameGrid.innerHTML = "";
-    games.forEach(game => {
+    
+    // Filter games based on selected platform
+    const filteredGames = games.filter(game => game.platforms.includes(platform));
+    
+    filteredGames.forEach(game => {
         const name = game.gameName || 'No Name';
         const image = game.image ? `http://localhost:3000/${game.image}` : 'default-image.jpg';
         const genres = game.genres || 'No Genres Available';
 
-        console.log(`Gamename: ${name}, Image: ${image}, Genres: ${genres}`);
+        console.log(`Gamename: ${name}, Image: ${image}, Genres: ${genres}, Platform: ${platform}`);
         
         const card = document.createElement("div");
         card.className = "game-card";
-        /*card.innerHTML = `
-            <img src="${image}" alt="${name}">
-            <h3>${name}</h3>
-            <p><strong>Genres:</strong> ${genres}</p>
-        `;*/
+        
         card.innerHTML = `
             <img src="/Images/Shared/The_Last_Of_Us_Part_1_Remastered.jpg" alt="${name}">
             <h3>${name}</h3>
             <p><strong>Genres:</strong> ${genres}</p>
         `;
+        
         card.onclick = () => window.location.href = `/game-details.html?name=${encodeURIComponent(name)}`;
         gameGrid.appendChild(card);
     });
 }
+
 
 function filterGames() {
     const search = document.getElementById("search").value.toLowerCase();
@@ -101,37 +115,3 @@ function filterGames() {
 
 document.getElementById("search").addEventListener("keyup", filterGames);
 document.getElementById("genre").addEventListener("change", filterGames);
-
-
-
-
-
-/*function displayGames(games,genres,platforms) {
-    games.forEach(game => {
-        console.log('Game:', game);
-        const name = game.gameName;
-        const description = game.Description;
-        const image = game.image || `default-image.jpg`;
-        //segundo for each para genero y platforms
-        // Assuming you need to match genres and platforms by gameId
-        // Find all genres linked to the game by its ID
-        const gameGenres = genres ? genres.filter(g => g.videogameId === game.id).map(g => g.game_genre) : [];
-        const genre = gameGenres.length > 0 ? gameGenres.join(', ') : 'No Genres Available';
-
-        const platform = platforms ? platforms.find(p => p.gameId === game.gameId)?.platformName : 'No Platforms Available';
-
-        console.log(`Gamename ${name},\ndescriptiopn ${description},\nimg ${image},\ngenres ${genre}`);
-
-        const gameContainer = document.createElement(`div`);
-        gameContainer.classList.add('game=item');
-        gameContainer.innerHTML = `
-        <h3>${name || 'No Name'}</h3>
-        <p>${description || 'No Description Available'}</p>
-        <p>${genre}</p>
-        <p>${platform || 'No Platforms Available'}</p>
-        <img src="${image}" alt="${name || 'No Image'}">
-    `;
-    document.body.appendChild(gameContainer);
-    });
-    
-};*/
