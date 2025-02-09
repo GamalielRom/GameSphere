@@ -82,12 +82,16 @@ function displayGames(games, platform) {
 
         // Normalize the image path
         let imagePath = game.Image || "";
-        if (!imagePath.startsWith("/")) {
-            imagePath = "/" + imagePath; // Ensure it starts with a slash
+        
+        // Check if image path is relative (doesn't start with a slash)
+        if (imagePath && !imagePath.startsWith("/")) {
+            imagePath = "/Image/Shared/" + imagePath;  // Ensure the correct directory
         }
 
-        const image = game.Image ? `http://localhost:3000${imagePath}` : "/Image/Shared/Alien_Isolation.jpg";
-
+        // Ensure we use the full path (or fallback to default image if missing)
+        //const image = imagePath ? `http://localhost:3000${imagePath}` : "/Image/Shared/Alien_Isolation.jpg";
+        const image = imagePath
+        
         const genres = game.genres || "No Genres Available";
 
         console.log(`Gamename: ${name}, Image: ${image}, Genres: ${genres}, Platform: ${platform}`);
