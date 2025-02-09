@@ -79,7 +79,7 @@ function displayGames(games, platform) {
     
     filteredGames.forEach(game => {
         const name = game.gameName || 'No Name';
-        const image = game.image ? `http://localhost:3000/${game.image}` : 'default-image.jpg';
+        const image = game.Image ? `http://localhost:3000/${game.Image}` : 'default-image.jpg';
         const genres = game.genres || 'No Genres Available';
 
         console.log(`Gamename: ${name}, Image: ${image}, Genres: ${genres}, Platform: ${platform}`);
@@ -88,7 +88,7 @@ function displayGames(games, platform) {
         card.className = "game-card";
         
         card.innerHTML = `
-            <img src="/Images/Shared/The_Last_Of_Us_Part_1_Remastered.jpg" alt="${name}">
+            <img src="${image}" alt="${name}">
             <h3>${name}</h3>
             <p><strong>Genres:</strong> ${genres}</p>
         `;
