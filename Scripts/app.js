@@ -73,30 +73,39 @@ async function fetchGames() {
 function displayGames(games, platform) {
     const gameGrid = document.getElementById("gameGrid");
     gameGrid.innerHTML = "";
-    
+
     // Filter games based on selected platform
     const filteredGames = games.filter(game => game.platforms.includes(platform));
-    
+
     filteredGames.forEach(game => {
-        const name = game.gameName || 'No Name';
-        const image = game.Image ? `http://localhost:3000/${game.Image}` : 'default-image.jpg';
-        const genres = game.genres || 'No Genres Available';
+        const name = game.gameName || "No Name";
+
+        // Normalize the image path
+        let imagePath = game.Image || "";
+        if (!imagePath.startsWith("/")) {
+            imagePath = "/" + imagePath; // Ensure it starts with a slash
+        }
+
+        const image = game.Image ? `http://localhost:3000${imagePath}` : "/Image/Shared/Alien_Isolation.jpg";
+
+        const genres = game.genres || "No Genres Available";
 
         console.log(`Gamename: ${name}, Image: ${image}, Genres: ${genres}, Platform: ${platform}`);
-        
+
         const card = document.createElement("div");
         card.className = "game-card";
-        
+
         card.innerHTML = `
             <img src="${image}" alt="${name}">
             <h3>${name}</h3>
             <p><strong>Genres:</strong> ${genres}</p>
         `;
-        
+
         card.onclick = () => window.location.href = `/game-details.html?name=${encodeURIComponent(name)}`;
         gameGrid.appendChild(card);
     });
 }
+
 
 
 function filterGames() {
