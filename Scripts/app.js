@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchGames();
+    fetchGameDetails();
 });
 
 async function fetchGames() {
@@ -105,7 +106,7 @@ function displayGames(games, platform) {
             <p><strong>Genres:</strong> ${genres}</p>
         `;
 
-        card.onclick = () => window.location.href = `/game-details.html?name=${encodeURIComponent(name)}`;
+        card.onclick = () => window.location.href = `/details.html?name=${encodeURIComponent(name)}`;
         gameGrid.appendChild(card);
     });
 }
@@ -128,3 +129,61 @@ function filterGames() {
 
 document.getElementById("search").addEventListener("keyup", filterGames);
 document.getElementById("genre").addEventListener("change", filterGames);
+
+//Function for the Game details page
+//Fetching the game we selected
+async function fetchGameDetails() {
+    try {
+        //Gets the name from the game based on the url link
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameName = urlParams.get("name");
+        
+        if (!gameName) {
+            throw new Error("Game name not found in URL");
+        }
+
+        const response = await fetch(`http://localhost:300/api/videogames?name=${encodeURIComponent(gameName)}`);
+        
+        if (!response.ok) {
+            throw new Error("Failed to fetch game details");
+        }
+
+        //Store the data we get in a constant
+        const gameData = await response.json();
+        //Find the specific game we selkected
+        const game = Array.isArray(gameData) ? gameData.find(g => g.gameName === gameName) : gameData;
+
+        if (!game) {
+            throw new Error("Game not found");
+        }
+        //If the game is found, display the details page with the information from that game
+        displayGameDetails(game);
+    } catch (error) {
+        console.error("Error fetching game details:", error);
+    }
+}
+
+//Function that will display all the information from a Game
+function displayGameDetails(game) {
+    const detailsContainer = document.getElementById("gameDetails");
+    
+    if (!detailsContainer) {
+        console.error("Game details container not found");
+        return;
+    }
+
+    const imagePath = game.Image ;
+    
+    detailsContainer.innerHTML = `
+        <h1>${game.gameName}</h1>
+        <img src="${imagePath}" alt="${game.gameName}">
+        <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
+        <p><strong>Trailer:</strong> ${game.Trailer || "Unknown"}</p>
+        <p><strong>Players:</strong> ${game.players || "Unknown"}</p>
+        <p><strong>Company:</strong> ${game.company_name || "No Company Available"}</p>
+        <p><strong>Genres:</strong> ${game.genres || "No Genres Available"}</p>
+        <p><strong>Platforms:</strong> ${game.platforms || "Unknown"}</p>
+        
+        <a href="javascript:history.back()">Back to Games List</a>
+    `;
+}
