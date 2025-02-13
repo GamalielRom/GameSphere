@@ -39,36 +39,6 @@ async function fetchGames() {
     }
 }
 
-//Tony fixee el problema ahora deberia de estar funcionando pero si podes hacer que esto encuentre con el js los generos por el videojuego fuera increible
-//tecnicamente lee todos los datos si seguis esta logica de todo el codigo podras entender como acceder a todas las apis.
-//te lo dejo para que lo testees todo lo que querras 
-/*function displayGames(games) {
-    games.forEach(game => {
-        console.log('Game:', game);
-        const name = game.gameName;
-        const description = game.Description;
-        const image = game.image || 'default-image.jpg';
-        //const imageUrl = "http://localhost:3000/" + game.image;  // Complete image URL
-        
-        // Extract genres and platforms directly from the game object
-        const genres = game.genres || 'No Genres Available';
-        const platforms = game.platforms || 'No Platforms Available';
-
-        console.log(`Gamename: ${name},\nDescription: ${description},\nImage: ${image},\nGenres: ${genres},\nPlatforms: ${platforms}`);
-
-        const gameContainer = document.createElement('div');
-        gameContainer.classList.add('game-item');
-        gameContainer.innerHTML = `
-            <h3>${name || 'No Name'}</h3>
-            <p>${description || 'No Description Available'}</p>
-            <p><strong>Genres:</strong> ${genres}</p>
-            <p><strong>Platforms:</strong> ${platforms}</p>
-            <img src="${image}" alt="${name || 'No Image'}">
-        `;
-        document.body.appendChild(gameContainer);
-    });
-}
-*/
 //Adding the fuctunality to the dashbioard page for all videogames
 
 function displayGames(games, platform) {
@@ -176,7 +146,7 @@ function displayGameDetails(game) {
     
     detailsContainer.innerHTML = `
         <h1>${game.gameName}</h1>
-        <img src="${imagePath}" alt="${game.gameName}">
+        <img src="${imagePath}" alt="${game.gameName} image">
         <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
         <p><strong>Trailer:</strong> ${game.Trailer || "Unknown"}</p>
         <p><strong>Players:</strong> ${game.players || "Unknown"}</p>
