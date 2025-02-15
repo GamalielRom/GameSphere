@@ -131,10 +131,12 @@ async function fetchGameDetails() {
     } catch (error) {
         console.error("Error fetching game details:", error);
     }
+    
 }
 
 //Function that will display all the information from a Game
 function displayGameDetails(game) {
+    console.log("Game object received:", game);
     const detailsContainer = document.getElementById("gameDetails");
     
     if (!detailsContainer) {
@@ -143,14 +145,14 @@ function displayGameDetails(game) {
     }
 
     const imagePath = game.Image ;
-    
+    const company = game.company_name || "No Company Available";
     detailsContainer.innerHTML = `
         <h1>${game.gameName}</h1>
         <img src="${imagePath}" alt="${game.gameName} image">
         <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
         <p><strong>Trailer:</strong> ${game.Trailer || "Unknown"}</p>
         <p><strong>Players:</strong> ${game.players || "Unknown"}</p>
-        <p><strong>Company:</strong> ${game.company_name || "No Company Available"}</p>
+        <p><strong>Company:</strong> ${company}</p>
         <p><strong>Genres:</strong> ${game.genres || "No Genres Available"}</p>
         <p><strong>Platforms:</strong> ${game.platforms || "Unknown"}</p>
         

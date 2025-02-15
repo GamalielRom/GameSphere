@@ -24,15 +24,17 @@ export async function getAllVideogames() {
     try{
         const db = await dbPromise;
         const query = ` SELECT 
-                v.*, 
-                GROUP_CONCAT(DISTINCT g.game_genre) AS genres,
-                GROUP_CONCAT(DISTINCT p.plataform_name) AS platforms
-            FROM Videogames v
-            LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
-            LEFT JOIN Genres g ON gg.genresId = g.id
-            LEFT JOIN VideogamesPlataforms vp ON v.id = vp.videogameId
-            LEFT JOIN Plataforms p ON vp.plataformsId = p.id
-            GROUP BY v.id;`;
+                            v.*, 
+                                GROUP_CONCAT(DISTINCT g.game_genre) AS genres,
+                                GROUP_CONCAT(DISTINCT p.plataform_name) AS platforms,
+                                c.company_name
+                                FROM Videogames v
+                                LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
+                                LEFT JOIN Genres g ON gg.genresId = g.id
+                                LEFT JOIN VideogamesPlataforms vp ON v.id = vp.videogameId
+                                LEFT JOIN Plataforms p ON vp.plataformsId = p.id
+                                LEFT JOIN Companies c ON v.company_id = c.id
+                                GROUP BY v.id;`;
         const videogames = await db.all(query);
         return videogames;
     }catch(error){
@@ -45,11 +47,14 @@ export async function getAllVideogames() {
 export async function getVideogameByID(id:number) {
     try{
         const db = await dbPromise;
-        const query = `SELECT v.*, GROUP_CONCAT(g.game_genre, ', ') AS genres
+        const query = `SELECT v.*, 
+                        GROUP_CONCAT(g.game_genre, ', ') AS genres,
+                        c.company_name
                         FROM Videogames v
                         LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
                         LEFT JOIN Genres g ON gg.genresId = g.id
-                        WHERE v.id = ?;`;
+                        LEFT JOIN Companies c ON v.company_id = c.id
+                        WHERE v.id = ?`
         const videogame = await db.get(query, id);
         return videogame;
     }catch(error){

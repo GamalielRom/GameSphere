@@ -51,6 +51,8 @@
     nav ul li a:hover {
         text-decoration: underline;
     }
+
+   
     /*Header finish*/
 
     /* Video background begin */
@@ -149,7 +151,9 @@
     .game-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
         gap: 20px;
+        
     }
     .game-card {
         background: white;
