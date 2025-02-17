@@ -3,86 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dahsboard</title>
+    <title>Xbox Dashboard</title>
+    <link rel="stylesheet" href="/CSS/style.css"></link>
 </head>
 <body>
+    
     <header>
         <nav>
-            <div class="navbar">
-                <div class="logo">
-                    <a > <img src="/Images/" alt="platform logo"></a>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Platforms</a></li>
-                    <li><a href="#">Log Out</a></li>
-                </ul>
-            </div>
+            <ul>
+                <li><a href="/Index.html">Home</a></li>
+                <li><a href="/Nintendo/dashboard.html">Nintendo</a></li>
+                <li><a href="/PlayStation/dashboard.html">Playstation</a></li>
+                <li><a href="/Xbox/dashboard.html">Xbox</a></li>
+                <li><a href="/PC/dashboard.html">PC</a></li>
+            </ul>
         </nav>
     </header>
+
     <main>
-    <h1 class="main-tilte">Platfom</h1>
-        <div class="card-container">
-            <!-- <div class="card">
-                <a>
-                    <img src="/Images/">
-                </a>
-                    <div class="game-info">
-                        <p class="game-title">title</p>
-                        <p class="game-description">description</p>
-                    </div>
+        <div class="dash-container">
+            <h1>PC Games</h1>
+            <div class="filters">
+                <input type="text" id="search" placeholder="Search by name...">
+                <select id="genre">
+                    <option value="">All Genres</option>
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="RPG">RPG</option>
+                </select>
             </div>
-            <div class="card">
-                <a>
-                    <img src="/Images/">
-                </a>
-                <div class="game-info">
-                    <p class="game-title">title</p>
-                    <p class="game-description">description</p>
-                </div>
+            <div class="game-grid" id="gameGrid">
+                <!-- Game cards will be inserted here -->
             </div>
-            <div class="card">
-                <a>
-                    <img src="/Images/"> 
-                </a>
-                <div class="game-info">
-                    <p class="game-title">title</p>
-                    <p class="game-description">description</p>
-                </div>
-            </div>
-        
-            <div class="card">
-                <a>
-                    <img src="/Images/"> 
-                </a>
-                <div class="game-info">
-                    <p class="game-title">title</p>
-                    <p class="game-description">description</p>
-                </div>
-            </div>
-            <div class="card">
-                <a>
-                    <img src="/Images/"> 
-                </a>
-                <div class="game-info">
-                    <p class="game-title">title</p>
-                    <p class="game-description">description</p>
-                </div>
-            </div>
-            <div class="card">
-                <a>
-                    <img src="/Images/"> 
-                </a>
-                <div class="game-info">
-                    <p class="game-title">title</p>
-                    <p class="game-description">description</p>
-                </div> -->
-            </div>
-        
-        </div>
+            <footer>
+                <p>© 2025 Xbox. All rights reserved.</p>
+            </footer>
+        </div> 
+       
     </main>
-    <footer>
-        <p>© 2025 Xbox. All rights reserved.</p>
-    </footer>
+</div>
+    
+<script src="/Scripts/app.js"></script>
 </body>
 </html>
