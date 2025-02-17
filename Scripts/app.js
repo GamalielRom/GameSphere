@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add("pc");
     }else if(path.includes("playstation")){
         document.body.classList.add("playstation");
-    }else if(path.includes.add("xbox")){
+    }else if(path.includes("xbox")){
         document.body.classList.add("xbox");
     }
 });
