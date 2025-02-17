@@ -168,26 +168,42 @@ function displayGameDetails(game) {
     const xboxLink = game.Xbox_Link || "This game dont have a Xbox Link"
     const steamLink = game.Steam_Link || "This game dont have a Steam Link"
     console.log(trailer)
+
+    //Adding validation, if the game does not have a link realted to any of the trailer or official website buttons, the button will not be displayed in the website
+    let buttonsHTML = "";
+
+    if (trailer && trailer.trim() !== "There is no Trailer") {
+        buttonsHTML += `<button class="trailer-btn"><a href="${trailer}" target="_blank">Trailer</a></button><br>`;
+    }
+
+    if (nintendoLink && nintendoLink.trim() !== "This game dont have a Nintendo Link") {
+        buttonsHTML += `<button class="nintendo-button"><a href="${nintendoLink}" target="_blank">Nintendo Link</a></button><br>`;
+    }
+
+    if (playstationLink && playstationLink.trim() !== "This game dont have a Playstation Link") {
+        buttonsHTML += `<button class="ps-button"><a href="${playstationLink}" target="_blank">Playstation Link</a></button><br>`;
+    }
+
+    if (xboxLink && xboxLink.trim() !== "This game dont have a Xbox Link") {
+        buttonsHTML += `<button class="xbox-button"><a href="${xboxLink}" target="_blank">Xbox Link</a></button><br>`;
+    }
+
+    if (steamLink && steamLink.trim() !== "This game dont have a Steam Link") {
+        buttonsHTML += `<button class="pc-button"><a href="${steamLink}" target="_blank">Steam Link</a></button><br>`;
+    }
+
     detailsContainer.innerHTML = `
         <h1>${game.gameName}</h1>
         <img src="${imagePath}" alt="${game.gameName} image">
         <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
-        <btn class="trailer-btn"><a href="${trailer}">Trailer</a></btn>
-        <br>
-        <btn class="playstation-btn"><a href="${playstationLink}">Playstation Link</a></btn>
-        <br>
-        <btn class="xbox-btn"><a href="${xboxLink}">Xbox Link</a></btn>
-        <br>
-        <btn class="nintendo-btn"><a href="${nintendoLink}">Nintendo Link</a></btn>
-        <br>
-        <btn class="steam-btn"><a href="${steamLink}">Steam Link</a></btn>
+        ${buttonsHTML}
         <p><strong>Critic Rating:</strong> ${game.critic_rating || "Unknown"}</p>
-        <p><strong>User Rating:</strong> ${game.critic_rating || "Unknown"}</p>
+        <p><strong>User Rating:</strong> ${game.user_rating || "Unknown"}</p>
         <p><strong>Players:</strong> ${game.players || "Unknown"}</p>
         <p><strong>Company:</strong> ${company}</p>
         <p><strong>Genres:</strong> ${game.genres || "No Genres Available"}</p>
         <p><strong>Platforms:</strong> ${game.platforms || "Unknown"}</p>
         
-        <a href="javascript:history.back()">Back to Games List</a>
+        <button><a href="javascript:history.back()">Back to Games List</a></button>
     `;
 }
