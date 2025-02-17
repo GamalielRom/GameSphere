@@ -1,7 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchGames();
     fetchGameDetails();
+    const path = window.location.pathname.toLowerCase();
+    if(path.includes("nintendo")){
+        document.body.classList.add("nintendo");
+
+     
+    }else if(path.includes("pc")){
+        document.body.classList.add("pc");
+    }else if(path.includes("playstation")){
+        document.body.classList.add("playstation");
+    }else if(path.includes.add("xbox")){
+        document.body.classList.add("xbox");
+    }
 });
+
+function createImageNintendo(){
+  
+}
 
 async function fetchGames() {
     try {
@@ -146,11 +162,27 @@ function displayGameDetails(game) {
 
     const imagePath = game.Image ;
     const company = game.company_name || "No Company Available";
+    const trailer = game.Trailer || "There is no Trailer";
+    const playstationLink = game.PlayStation_Link || "This game dont have a Playstation Link"
+    const nintendoLink = game.Nintendo_Link || "This game dont have a Nintendo Link"
+    const xboxLink = game.Xbox_Link || "This game dont have a Xbox Link"
+    const steamLink = game.Steam_Link || "This game dont have a Steam Link"
+    console.log(trailer)
     detailsContainer.innerHTML = `
         <h1>${game.gameName}</h1>
         <img src="${imagePath}" alt="${game.gameName} image">
         <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
-        <p><strong>Trailer:</strong> ${game.Trailer || "Unknown"}</p>
+        <btn class="trailer-btn"><a href="${trailer}">Trailer</a></btn>
+        <br>
+        <btn class="playstation-btn"><a href="${playstationLink}">Playstation Link</a></btn>
+        <br>
+        <btn class="xbox-btn"><a href="${xboxLink}">Xbox Link</a></btn>
+        <br>
+        <btn class="nintendo-btn"><a href="${nintendoLink}">Nintendo Link</a></btn>
+        <br>
+        <btn class="steam-btn"><a href="${steamLink}">Steam Link</a></btn>
+        <p><strong>Critic Rating:</strong> ${game.critic_rating || "Unknown"}</p>
+        <p><strong>User Rating:</strong> ${game.critic_rating || "Unknown"}</p>
         <p><strong>Players:</strong> ${game.players || "Unknown"}</p>
         <p><strong>Company:</strong> ${company}</p>
         <p><strong>Genres:</strong> ${game.genres || "No Genres Available"}</p>
