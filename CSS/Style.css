@@ -246,7 +246,22 @@
         border-radius: 8px;
     }
     /*Dashboard Page design for each videogame ends*/
+    /*Videogame Details page*/
+    .game-details{
+        margin-top: 40px;
+    }
+    .detail-split{
+        display: grid;
+        grid-template-columns :repeat(2,1fr);
+        justify-items: center;
+        gap: 20px;
+        /*Adding margin that will push the content down so it fits with the header*/
+        margin-top: 30px;
+    }
 
+    .detail-split img{
+        width: 50%;
+    }
 
     /*Design for the footer*/
     footer {

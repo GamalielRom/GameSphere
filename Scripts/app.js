@@ -194,16 +194,23 @@ function displayGameDetails(game) {
 
     detailsContainer.innerHTML = `
         <h1>${game.gameName}</h1>
-        <img src="${imagePath}" alt="${game.gameName} image">
-        <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
-        ${buttonsHTML}
-        <p><strong>Critic Rating:</strong> ${game.critic_rating || "Unknown"}</p>
-        <p><strong>User Rating:</strong> ${game.user_rating || "Unknown"}</p>
-        <p><strong>Players:</strong> ${game.players || "Unknown"}</p>
-        <p><strong>Company:</strong> ${company}</p>
-        <p><strong>Genres:</strong> ${game.genres || "No Genres Available"}</p>
-        <p><strong>Platforms:</strong> ${game.platforms || "Unknown"}</p>
+        <div class="detail-split">
+            <img src="${imagePath}" alt="${game.gameName} image">
+                <div>
+                    <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
+                    <p><strong>Critic Rating:</strong> ${game.critic_rating || "Unknown"}</p>
+                    <p><strong>User Rating:</strong> ${game.user_rating || "Unknown"}</p>
+                    <p><strong>Players:</strong> ${game.players || "Unknown"}</p>
+                    <p><strong>Company:</strong> ${company}</p>
+                    <p><strong>Genres:</strong> ${game.genres || "No Genres Available"}</p>
+                    <p><strong>Platforms:</strong> ${game.platforms || "Unknown"}</p>
+                    <div>
+                    ${buttonsHTML}
+                </div>
+            </div>
+             <button><a href="javascript:history.back()">Back to Games List</a></button>
+        </div>
         
-        <button><a href="javascript:history.back()">Back to Games List</a></button>
+       
     `;
 }
