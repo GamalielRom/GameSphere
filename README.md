@@ -6,11 +6,11 @@ Once a platform is selected, users are redirected to a dedicated page displaying
 Please note that the data displayed on the website is randomly generated, so some information may not be entirely accurate.
 
 Technologies Used
-HTML & CSS
-TypeScript
-JavaScript
-SQLite
-Node.js
+  -HTML & CSS
+  -TypeScript
+  -JavaScript
+  -SQLite
+  -Node.js
 Creators
-Gamaliel Salvador Romualdo Eva
-Juan Francisco Jacobo Rodriguez
+  -Gamaliel Salvador Romualdo Eva
+  -Juan Francisco Jacobo Rodriguez
