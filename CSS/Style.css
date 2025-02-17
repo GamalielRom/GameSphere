@@ -125,9 +125,14 @@
     
     /*Video background finish*/
 
-    /*Container that ill display the text in the center (mainly used for index.html)*/
+    /*Container that will display the text in the center (mainly used for index.html)*/
     .container {
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%; 
     }
 
     /* Welcome message*/
@@ -149,7 +154,9 @@
     /*Container for platform buttons*/
     .buttons-container {
         display: flex;
-        gap: 20px;
+        justify-content: center; /* Centers buttons horizontally */
+        gap: 20px; /* Adds space between buttons */
+        margin-top: 20px
     }
 
     /*General design for each platform button*/
@@ -246,6 +253,7 @@
         border-radius: 8px;
     }
     /*Dashboard Page design for each videogame ends*/
+
     /*Videogame Details page*/
     .game-details{
         margin-top: 40px;
@@ -262,6 +270,7 @@
     .detail-split img{
         width: 50%;
     }
+    /*Videogame details end*/
 
     /*Design for the footer*/
     footer {
