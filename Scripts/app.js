@@ -192,25 +192,50 @@ function displayGameDetails(game) {
         buttonsHTML += `<button class="pc-button"><a href="${steamLink}" target="_blank">Steam Link</a></button><br>`;
     }
 
+    function getYouTubeID(url) {
+        const match = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+        return match ? match[1] : null; // Return video ID or null if not found
+    }
+    
+    const trailerID = getYouTubeID(game.Trailer); // Extract YouTube ID
+    
+    console.log("Extracted YouTube ID:", trailerID); // Debugging
+    
     detailsContainer.innerHTML = `
         <h1>${game.gameName}</h1>
         <div class="detail-split">
             <img src="${imagePath}" alt="${game.gameName} image">
+            <div>
+                <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
+                <p><strong>Critic Rating:</strong> ${game.critic_rating || "Unknown"}</p>
+                <p><strong>User Rating:</strong> ${game.user_rating || "Unknown"}</p>
+                <p><strong>Players:</strong> ${game.players || "Unknown"}</p>
+                <p><strong>Company:</strong> ${company}</p>
+                <p><strong>Genres:</strong> ${game.genres || "No Genres Available"}</p>
+                <p><strong>Platforms:</strong> ${game.platforms || "Unknown"}</p>
+    
+                <!-- Video Preview for Trailer -->
+                <div class="video-container">
+                    <h2>Trailer</h2>
+                    ${
+                        trailerID 
+                            ? `<iframe 
+                                width="560" 
+                                height="315" 
+                                src="https://www.youtube.com/embed/${trailerID}" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>`
+                            : "<p>No trailer available.</p>"
+                    }
+                </div>
+    
                 <div>
-                    <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
-                    <p><strong>Critic Rating:</strong> ${game.critic_rating || "Unknown"}</p>
-                    <p><strong>User Rating:</strong> ${game.user_rating || "Unknown"}</p>
-                    <p><strong>Players:</strong> ${game.players || "Unknown"}</p>
-                    <p><strong>Company:</strong> ${company}</p>
-                    <p><strong>Genres:</strong> ${game.genres || "No Genres Available"}</p>
-                    <p><strong>Platforms:</strong> ${game.platforms || "Unknown"}</p>
-                    <div>
                     ${buttonsHTML}
                 </div>
             </div>
-             <button><a href="javascript:history.back()">Back to Games List</a></button>
         </div>
-        
-       
+        <button><a href="javascript:history.back()">Back to Games List</a></button>
     `;
 }
