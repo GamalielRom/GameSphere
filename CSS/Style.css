@@ -160,7 +160,7 @@
     }
 
     /*General design for each platform button*/
-    .buttons-container button{
+    .buttons-container button, .game-details button{
         color: white;
         padding: 15px 30px;
         font-size: 18px;
@@ -188,7 +188,7 @@
         background-color: #E4000F;
     }
 
-    .buttons-container button:hover {
+    .buttons-container button:hover, .game-details button:hover, .game-details a:hover {
         color: #333;
         border-color: #333;
         cursor: pointer;
@@ -255,8 +255,15 @@
     /*Dashboard Page design for each videogame ends*/
 
     /*Videogame Details page*/
+    /*Buttons for the details page are configured at the same stage than landing page buttons*/
+    /*Also the action to hover them is configured at the same time than the landing page*/
     .game-details{
         margin-top: 40px;
+    }
+
+    .game-details a{
+        text-decoration: none;
+        color: #fff;
     }
     .detail-split{
         display: grid;
