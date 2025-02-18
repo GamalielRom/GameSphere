@@ -265,10 +265,24 @@
         gap: 20px;
         /*Adding margin that will push the content down so it fits with the header*/
         margin-top: 30px;
+        justify-content: center;
+        align-items: start;
     }
 
     .detail-split img{
         width: 50%;
+    }
+    .game-box {
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        width: 800px;
+    }
+    
+    .game-box iframe {
+        border-radius: 8px;
     }
     /*Videogame details end*/
 
