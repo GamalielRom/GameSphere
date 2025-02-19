@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add("xbox");
     }else if(path.includes("create")){
         document.body.classList.add("create");
+    }else if(path.includes("details")){
+        document.body.classList.add("details");
     }
 });
 
@@ -177,19 +179,19 @@ function displayGameDetails(game) {
     }*/
 
     if (nintendoLink && nintendoLink.trim() !== "This game dont have a Nintendo Link") {
-        buttonsHTML += `<button class="nintendo-button"><a href="${nintendoLink}" target="_blank">Nintendo</a></button><br>`;
+        buttonsHTML += `<button class="nintendo-button"><a href="${nintendoLink}" target="_blank">Nintendo</a></button>`;
     }
 
     if (playstationLink && playstationLink.trim() !== "This game dont have a Playstation Link") {
-        buttonsHTML += `<button class="ps-button"><a href="${playstationLink}" target="_blank">Playstation</a></button><br>`;
+        buttonsHTML += `<button class="ps-button"><a href="${playstationLink}" target="_blank">Playstation</a></button>`;
     }
 
     if (xboxLink && xboxLink.trim() !== "This game dont have a Xbox Link") {
-        buttonsHTML += `<button class="xbox-button"><a href="${xboxLink}" target="_blank">Xbox</a></button><br>`;
+        buttonsHTML += `<button class="xbox-button"><a href="${xboxLink}" target="_blank">Xbox</a></button>`;
     }
 
     if (steamLink && steamLink.trim() !== "This game dont have a Steam Link") {
-        buttonsHTML += `<button class="pc-button"><a href="${steamLink}" target="_blank">Steam</a></button><br>`;
+        buttonsHTML += `<button class="pc-button"><a href="${steamLink}" target="_blank">Steam</a></button>`;
     }
 
     function getYouTubeID(url) {
@@ -236,7 +238,9 @@ function displayGameDetails(game) {
             </div>
             <div class="game-box">
                 <h2>Official website Link</h2>
-                ${buttonsHTML}
+                <div class="game-btn">
+                    ${buttonsHTML}
+                </div>
             </div>
             <button><a href="javascript:history.back()">Back to Games List</a></button>
         </div>

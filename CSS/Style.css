@@ -104,6 +104,12 @@
         background-size: cover;       
         background-repeat: no-repeat; 
     }
+    .details{
+        background: linear-gradient(135deg, #ffffff 50%, #8C5606 50%);
+        background-attachment: fixed;   
+        background-size: cover;       
+        background-repeat: no-repeat; 
+    }
   .game-card img{
     width: fit-content;
     height: 15.625rem;
@@ -311,8 +317,6 @@
     }
     .game-box {
         padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         display: flex;
         flex-direction: column;
         width: 800px;
@@ -323,6 +327,13 @@
     .game-box iframe, img {
         align-self:  center;
         border-radius: 8px;
+    }
+    .game-btn{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        align-self: center; /* Centers buttons horizontally */
+        gap: 20px; /* Adds space between buttons */
+        margin-top: 20px
     }
     /*Videogame details end*/
 
