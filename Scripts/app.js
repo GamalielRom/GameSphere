@@ -4,14 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const path = window.location.pathname.toLowerCase();
     if(path.includes("nintendo")){
         document.body.classList.add("nintendo");
-
-     
     }else if(path.includes("pc")){
         document.body.classList.add("pc");
     }else if(path.includes("playstation")){
         document.body.classList.add("playstation");
     }else if(path.includes("xbox")){
         document.body.classList.add("xbox");
+    }else if(path.includes("create")){
+        document.body.classList.add("create");
     }
 });
 

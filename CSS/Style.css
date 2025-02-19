@@ -37,7 +37,7 @@
     }
 
     main{
-        margin-top: 80px; /* Ajusta según la altura del header */
+        margin-top: 120px; /* Adjust by the hight of the header */
         padding: 20px;
     }
 
@@ -81,26 +81,32 @@
     }
     .nintendo{
         background: linear-gradient(135deg, #ffffff 50%, #E4000F 50%);
-        background-attachment: fixed;    /* Fija el fondo en la ventana */
-        background-size: cover;         /* Escala el gradiente para cubrir la pantalla */
+        background-attachment: fixed;   
+        background-size: cover;         
         background-repeat: no-repeat; 
     }
     .xbox{
         background: linear-gradient(135deg, #ffffff 50%, #0E7A0D 50%);
-        background-attachment: fixed;    /* Fija el fondo en la ventana */
-        background-size: cover;         /* Escala el gradiente para cubrir la pantalla */
+        background-attachment: fixed;    
+        background-size: cover;         
         background-repeat: no-repeat; 
     }
     .playstation{
         background: linear-gradient(135deg, #ffffff 50%, #006FCD 50%);
-        background-attachment: fixed;    /* Fija el fondo en la ventana */
-        background-size: cover;         /* Escala el gradiente para cubrir la pantalla */
+        background-attachment: fixed;  
+        background-size: cover;        
         background-repeat: no-repeat; 
     }
     .pc{
         background: linear-gradient(135deg, #ffffff 50%, #37E0B6 50%);
-        background-attachment: fixed;    /* Fija el fondo en la ventana */
-        background-size: cover;         /* Escala el gradiente para cubrir la pantalla */
+        background-attachment: fixed;   
+        background-size: cover;        
+        background-repeat: no-repeat; 
+    }
+    .create{
+        background: linear-gradient(135deg, #ffffff 50%, #1C1C1C 50%);
+        background-attachment: fixed;   
+        background-size: cover;       
         background-repeat: no-repeat; 
     }
   .game-card img{
@@ -140,19 +146,26 @@
         height: 100%; 
         color: white;
     }
+    .container button{
+        text-align: center;
+        color: white;
+        text-decoration: none;
+        width: fit-content;
+    }
     .container p{
         color: white;
     }
 
     .logo-container{
         width: fit-content;
+        max-width: 30rem;
         display: flex;
         justify-content: center;
         position: absolute;
         top: 0cap;
     }
     .logo{
-        max-width: 30rem;
+        max-width: 25rem;
     }
     /* Welcome message*/
     .welcome-message {
@@ -171,7 +184,7 @@
     /*Buttons styling begins*/
 
     /*Container for platform buttons*/
-    .buttons-container {
+    .buttons-container, .create-container {
         display: flex;
         justify-content: center; /* Centers buttons horizontally */
         gap: 20px; /* Adds space between buttons */
@@ -179,7 +192,7 @@
     }
 
     /*General design for each platform button*/
-    .buttons-container button, .game-details button{
+    .buttons-container button, .game-details button, .container button{
         color: white;
         padding: 15px 30px;
         font-size: 18px;
@@ -189,10 +202,12 @@
         transition: all 0.3s ease;
         width: 180px;
     }
-
     /* Adding color to each platform button  */
     .pc-button {
         background-color: #37E0B6;
+    }
+    .create-new-button{
+        background-color: #FFD700;
     }
 
     .ps-button {
@@ -207,7 +222,7 @@
         background-color: #E4000F;
     }
 
-    .buttons-container button:hover, .game-details button:hover, .game-details a:hover {
+    .buttons-container button:hover, .game-details button:hover, .game-details a:hover, .create-container button:hover {
         color: #333;
         border-color: #333;
         cursor: pointer;
