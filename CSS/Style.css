@@ -321,8 +321,11 @@
         flex-direction: column;
         width: 800px;
     }
-    
-    .game-box iframe {
+    .game-box h2{
+        text-align: center;
+    }
+    .game-box iframe, img {
+        align-self:  center;
         border-radius: 8px;
     }
     /*Videogame details end*/
