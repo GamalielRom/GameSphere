@@ -355,3 +355,48 @@
     margin: 0;
     max-width: fit-content;
 }
+/*About us page*/
+.about-intro, .platforms, .filter-section, .authors {
+    padding: 20px;
+    margin: 20px auto;
+}
+/* Author Section */
+.authors {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.author-box {
+    padding: 15px;
+    width: 250px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.author-box img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.author-box h3 {
+    margin: 10px 0 5px;
+}
+
+.social-links button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.social-links button:hover {
+    background: #555;
+}
