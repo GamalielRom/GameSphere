@@ -214,8 +214,8 @@ function displayGameDetails(game) {
                 ${
                     trailerID 
                         ? `<iframe 
-                            width="560" 
-                            height="315" 
+                            width="700" 
+                            height="400" 
                             src="https://www.youtube.com/embed/${trailerID}" 
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 

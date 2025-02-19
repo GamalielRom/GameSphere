@@ -14,11 +14,6 @@
         overflow-x: hidden;
     }
 
-    .detail-split img{
-        width: fit-content;
-        max-width: 25rem;
-        min-width: 25rem;
-    }
 
     /*El header lo rushee con IA, tengo que revisarlo y hacer ajustes*/
     /* Header begin*/
@@ -311,7 +306,8 @@
     }
 
     .detail-split img{
-        width: 50%;
+        width: fit-content;
+        height: 400px;
     }
     .game-box {
         padding: 15px;
