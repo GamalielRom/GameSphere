@@ -5,6 +5,11 @@ Once a platform is selected, users are redirected to a dedicated page displaying
 
 Please note that the data displayed on the website is randomly generated, so some information may not be entirely accurate.
 
+Please remember if you want to give it a try you have to run the next command: npx ts-node Sources/Routes/server.ts in that way you can run the server in local host and then use a extension like Live Server to see the pages with the information from the database.
+
+If you want to test the CRUD operation please install THUNDER and run the server 
+http://localhost:300/videogames For example if you want to see all the videogames in the database.
+
 Technologies Used
   -HTML & CSS
   -TypeScript
@@ -14,3 +19,6 @@ Technologies Used
 Creators
   -Gamaliel Salvador Romualdo Eva
   -Juan Francisco Jacobo Rodriguez
+
+Note:
+This website runs in a local server and is just for learning and demostration of our developing skills please understand that we know we dont have the permitions to use any of the videogames you see on the database.

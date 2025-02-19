@@ -14,6 +14,11 @@
         overflow-x: hidden;
     }
 
+    .detail-split img{
+        width: fit-content;
+        max-width: 25rem;
+        min-width: 25rem;
+    }
 
     /*El header lo rushee con IA, tengo que revisarlo y hacer ajustes*/
     /* Header begin*/
@@ -133,8 +138,22 @@
         justify-content: center;
         align-items: center;
         height: 100%; 
+        color: white;
+    }
+    .container p{
+        color: white;
     }
 
+    .logo-container{
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: 0cap;
+    }
+    .logo{
+        max-width: 30rem;
+    }
     /* Welcome message*/
     .welcome-message {
         font-size: 36px;
