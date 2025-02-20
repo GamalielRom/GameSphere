@@ -14,11 +14,6 @@
         overflow-x: hidden;
     }
 
-    .detail-split img{
-        width: fit-content;
-        max-width: 25rem;
-        min-width: 25rem;
-    }
 
     /*El header lo rushee con IA, tengo que revisarlo y hacer ajustes*/
     /* Header begin*/
@@ -105,6 +100,12 @@
     }
     .create{
         background: linear-gradient(135deg, #ffffff 50%, #1C1C1C 50%);
+        background-attachment: fixed;   
+        background-size: cover;       
+        background-repeat: no-repeat; 
+    }
+    .details{
+        background: linear-gradient(135deg, #ffffff 50%, #8C5606 50%);
         background-attachment: fixed;   
         background-size: cover;       
         background-repeat: no-repeat; 
@@ -365,19 +366,28 @@
     }
 
     .detail-split img{
-        width: 50%;
+        width: fit-content;
+        height: 400px;
     }
     .game-box {
         padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         display: flex;
         flex-direction: column;
         width: 800px;
     }
-    
-    .game-box iframe {
+    .game-box h2{
+        text-align: center;
+    }
+    .game-box iframe, img {
+        align-self:  center;
         border-radius: 8px;
+    }
+    .game-btn{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        align-self: center; /* Centers buttons horizontally */
+        gap: 20px; /* Adds space between buttons */
+        margin-top: 20px
     }
     /*Videogame details end*/
 
@@ -409,4 +419,49 @@
     bottom: 5rem;   
     margin: 0;
     max-width: fit-content;
+}
+/*About us page*/
+.about-intro, .platforms, .filter-section, .authors {
+    padding: 20px;
+    margin: 20px auto;
+}
+/* Author Section */
+.authors {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.author-box {
+    padding: 15px;
+    width: 250px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.author-box img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.author-box h3 {
+    margin: 10px 0 5px;
+}
+
+.social-links button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.social-links button:hover {
+    background: #555;
 }

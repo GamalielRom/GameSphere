@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add("xbox");
     }else if(path.includes("create")){
         document.body.classList.add("create");
+    }else if(path.includes("details")){
+        document.body.classList.add("details");
     }
 });
 
@@ -172,24 +174,24 @@ function displayGameDetails(game) {
     //Adding validation, if the game does not have a link realted to any of the trailer or official website buttons, the button will not be displayed in the website
     let buttonsHTML = "";
 
-    if (trailer && trailer.trim() !== "There is no Trailer") {
+    /*if (trailer && trailer.trim() !== "There is no Trailer") {
         buttonsHTML += `<button class="trailer-btn"><a href="${trailer}" target="_blank">Trailer</a></button><br>`;
-    }
+    }*/
 
     if (nintendoLink && nintendoLink.trim() !== "This game dont have a Nintendo Link") {
-        buttonsHTML += `<button class="nintendo-button"><a href="${nintendoLink}" target="_blank">Nintendo Link</a></button><br>`;
+        buttonsHTML += `<button class="nintendo-button"><a href="${nintendoLink}" target="_blank">Nintendo</a></button>`;
     }
 
     if (playstationLink && playstationLink.trim() !== "This game dont have a Playstation Link") {
-        buttonsHTML += `<button class="ps-button"><a href="${playstationLink}" target="_blank">Playstation Link</a></button><br>`;
+        buttonsHTML += `<button class="ps-button"><a href="${playstationLink}" target="_blank">Playstation</a></button>`;
     }
 
     if (xboxLink && xboxLink.trim() !== "This game dont have a Xbox Link") {
-        buttonsHTML += `<button class="xbox-button"><a href="${xboxLink}" target="_blank">Xbox Link</a></button><br>`;
+        buttonsHTML += `<button class="xbox-button"><a href="${xboxLink}" target="_blank">Xbox</a></button>`;
     }
 
     if (steamLink && steamLink.trim() !== "This game dont have a Steam Link") {
-        buttonsHTML += `<button class="pc-button"><a href="${steamLink}" target="_blank">Steam Link</a></button><br>`;
+        buttonsHTML += `<button class="pc-button"><a href="${steamLink}" target="_blank">Steam</a></button>`;
     }
 
     function getYouTubeID(url) {
@@ -205,6 +207,7 @@ function displayGameDetails(game) {
         <h1>${game.gameName}</h1>
         <div class="detail-split">
             <div class="game-box">
+                <h2>Image</h2>
                 <img src="${imagePath}" alt="${game.gameName} image">
             </div>
             <!-- Video Preview for Trailer -->
@@ -213,8 +216,8 @@ function displayGameDetails(game) {
                 ${
                     trailerID 
                         ? `<iframe 
-                            width="560" 
-                            height="315" 
+                            width="700" 
+                            height="400" 
                             src="https://www.youtube.com/embed/${trailerID}" 
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -224,6 +227,7 @@ function displayGameDetails(game) {
                     }
             </div>
              <div class="game-box">
+                <h2>Game Info</h2>
                 <p><strong>Description:</strong> ${game.Description || "No description available."}</p>
                 <p><strong>Critic Rating:</strong> ${game.critic_rating || "Unknown"}</p>
                 <p><strong>User Rating:</strong> ${game.user_rating || "Unknown"}</p>
@@ -233,7 +237,10 @@ function displayGameDetails(game) {
                 <p><strong>Platforms:</strong> ${game.platforms || "Unknown"}</p>
             </div>
             <div class="game-box">
-                ${buttonsHTML}
+                <h2>Official website Link</h2>
+                <div class="game-btn">
+                    ${buttonsHTML}
+                </div>
             </div>
             <button><a href="javascript:history.back()">Back to Games List</a></button>
         </div>
