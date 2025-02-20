@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchGames();
     fetchGameDetails();
+    fetchGenres();
     const path = window.location.pathname.toLowerCase();
     if(path.includes("nintendo")){
         document.body.classList.add("nintendo");
@@ -99,7 +100,31 @@ function displayGames(games, platform) {
     });
 }
 
+//Adding the function to fetch all the genders available in the database:
+async function fetchGenres() {
+    try {
+        const response = await fetch('http://localhost:300/api/genres'); // Adjust API endpoint as needed
+        if (!response.ok) {
+            throw new Error('Failed to fetch genres');
+        }
 
+        const genres = await response.json();
+        console.log("Fetched Genres:", genres);
+
+        const genreSelect = document.getElementById("genre");
+        genreSelect.innerHTML = `<option value="">All Genres</option>`; // Default option
+
+        genres.forEach(genre => {
+            const option = document.createElement("option");
+            option.value = genre.game_genre; // Use game_genre as the value
+            option.textContent = genre.game_genre;
+            genreSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error('Error fetching genres:', error);
+    }
+}
 
 function filterGames() {
     const search = document.getElementById("search").value.toLowerCase();
