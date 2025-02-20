@@ -367,9 +367,8 @@
     max-width: fit-content;
 }
 /*About us page*/
-.about-intro, .platforms, .filter-section, .authors {
-    padding: 20px;
-    margin: 20px auto;
+.about-intro, .authors {
+    
 }
 /* Author Section */
 .authors {
