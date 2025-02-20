@@ -222,6 +222,9 @@
     .nintendo-button {
         background-color: #E4000F;
     }
+    .about-button{
+        background-color: #8C5606;
+    }
 
     .buttons-container button:hover, .game-details button:hover, .game-details a:hover, .create-container button:hover {
         color: #333;
