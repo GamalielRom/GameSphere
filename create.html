@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create New Videogame - GameSphere</title>
+  <link rel="stylesheet" href="/CSS/style.css"></link> 
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/Index.html">Home</a></li>
+                <li><a href="/Nintendo/dashboard.html">Nintendo</a></li>
+                <li><a href="/PlayStation/dashboard.html">Playstation</a></li>
+                <li><a href="/Xbox/dashboard.html">Xbox</a></li>
+                <li><a href="/PC/dashboard.html">PC</a></li>
+                <li><a href="/create.html">Create Game</a></li>
+                <li><a href="/about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <div class="dash-container">
+        <h1>Create New Videogame</h1>
+        <form id="createGameForm">
+        <div class="form-group">
+            <label for="gameName">Game Name</label>
+            <input type="text" id="gameName" name="gameName" required>
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea id="Description" name="Description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="Image">Image URL</label>
+            <input type="text" id="Image" name="Image" required>
+        </div>
+        <div class="form-group">
+            <label for="PlayStation_Link">PlayStation Link</label>
+            <input type="text" id="PlayStation_Link" name="PlayStation_Link">
+        </div>
+        <div class="form-group">
+            <label for="Steam_Link">Steam Link</label>
+            <input type="text" id="Steam_Link" name="Steam_Link">
+        </div>
+        <div class="form-group">
+            <label for="Nintendo_Link">Nintendo Link</label>
+            <input type="text" id="Nintendo_Link" name="Nintendo_Link">
+        </div>
+        <div class="form-group">
+            <label for="Xbox_Link">Xbox Link</label>
+            <input type="text" id="Xbox_Link" name="Xbox_Link">
+        </div>
+        <div class="form-group">
+            <label for="game_page_link">Game Page Link</label>
+            <input type="text" id="game_page_link" name="game_page_link">
+        </div>
+        <div class="form-group">
+            <label for="critic_rating">Critic Rating</label>
+            <input type="number" step="0.1" id="critic_rating" name="critic_rating" required>
+        </div>
+        <div class="form-group">
+            <label for="user_rating">User Rating</label>
+            <input type="number" step="0.1" id="user_rating" name="user_rating" required>
+        </div>
+        <div class="form-group">
+            <label for="trophies">Trophies</label>
+            <input type="number" id="trophies" name="trophies" required>
+        </div>
+        <div class="form-group">
+            <label for="Trailer">Trailer URL</label>
+            <input type="text" id="Trailer" name="Trailer" required>
+        </div>
+        <div class="form-group">
+            <label for="players">Players</label>
+            <input type="number" id="players" name="players" required>
+        </div>
+        <div class="form-group">
+            <label for="company_id">Company ID</label>
+            <input type="number" id="company_id" name="company_id" required>
+        </div>
+        <button type="submit">Create Videogame</button>
+        </form>
+        <div class="message" id="message"></div>
+    </div>
+    
+    <script src="/Scripts/create.js"></script>
+    <script src="/Scripts/app.js"></script>
+</main>
+</body>
+</html>

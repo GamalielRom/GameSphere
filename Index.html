@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomePage</title>
+    <title>GameSphere</title>
+    <link rel="stylesheet" href="/CSS/style.css"/>
 </head>
 <body>
-    <p>Hello World Testing</p>
+    <main>
+        <!-- Video de fondo -->
+        <div class="video-background">
+            <video autoplay muted loop id="background-video">
+                <source src="/Video/PacMan.exe (Revisit) - Full Gameplay - No Commentary.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="container">
+            <div class="logo-container">
+                <img class="logo" src="/Images/logo/game_sphere_logo.png">
+            </div>
+            <h1 class="welcome-message">Welcome to GameSphere!</h1>
+            <p class="platform-message">Select your platform to get started!</p>
+            
+            <div class="buttons-container">
+                <button class="nintendo-button" onclick="window.location.href='/Nintendo/dashboard.html'">Nintendo</button>
+                <button class="ps-button" onclick="window.location.href='/PlayStation/dashboard.html'">PlayStation</button>
+                <button class="xbox-button" onclick="window.location.href='/Xbox/dashboard.html'">Xbox</button>
+                <button class="pc-button" onclick="window.location.href='/PC/dashboard.html'">PC</button>
+            </div>
+            <div class="create-container">
+                <button class="create-new-button" onclick="window.location.href='/create.html'">Create </button>
+                <button class="about-button" onclick="window.location.href='/about.html'">About Us </button>
+            </div>
+        </div>
+    </main>
+    <script src="Scripts/app.js"></script>
 </body>
 </html>

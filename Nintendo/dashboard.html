@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nintendo Dashboard</title>
+    <link rel="stylesheet" href="/CSS/style.css"></link>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/Index.html">Home</a></li>
+                <li><a href="/Nintendo/dashboard.html">Nintendo</a></li>
+                <li><a href="/PlayStation/dashboard.html">Playstation</a></li>
+                <li><a href="/Xbox/dashboard.html">Xbox</a></li>
+                <li><a href="/PC/dashboard.html">PC</a></li>
+                <li><a href="/create.html">Create Game</a></li>
+                <li><a href="/about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <div class="dash-container">
+        <h1>Nintendo Games</h1>
+        <div class="filters">
+            <input type="text" id="search" placeholder="Search by name...">
+            <select id="genre">
+                <!--Javascript code will add all the genres in the database-->
+            </select>
+        </div>
+        <div class="game-grid" id="gameGrid">
+            <!-- Game cards will be inserted here -->
+           
+        </div>
+        <img src="/Images/Nintendo/mario-pipe.png" class="mario-pipe"> 
+        <footer>
+            <p>© 2025 GameSphere. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script src="/Scripts/app.js"></script>
+    </main>
+</body>
+</html>

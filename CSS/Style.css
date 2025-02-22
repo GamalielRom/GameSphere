@@ -1,0 +1,422 @@
+    /*Default style for the page, font family, margins, etc*/
+    /*Font color defaulted to #1C1C1C (almost black, for text color), background color defaulted to #f4f4f4 (light gray)*/
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+        color: #1C1C1C;
+        overflow-y: auto; /* Enables scrolling */
+        overflow-x: hidden;
+    }
+
+
+    /*El header lo rushee con IA, tengo que revisarlo y hacer ajustes*/
+    /* Header begin*/
+    header {
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        color: white;
+        padding: 20px;
+        position: fixed;
+        text-align: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999; /* Ensures the header stays on top of other content */
+        box-sizing: border-box;
+        padding: 5px;
+    }
+
+    main{
+        margin-top: 120px; /* Adjust by the hight of the header */
+        padding: 20px;
+    }
+
+    h1{
+        text-align: center;
+        font-family: sans-serif;
+
+    }
+
+
+    header h1 {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    nav ul li {
+        display: inline;
+        margin-right: 15px;
+    }
+
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+    }
+
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
+
+    html, body{
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        overflow-x: hidden;
+    }
+    .nintendo{
+        background: linear-gradient(135deg, #ffffff 50%, #E4000F 50%);
+        background-attachment: fixed;   
+        background-size: cover;         
+        background-repeat: no-repeat; 
+    }
+    .xbox{
+        background: linear-gradient(135deg, #ffffff 50%, #0E7A0D 50%);
+        background-attachment: fixed;    
+        background-size: cover;         
+        background-repeat: no-repeat; 
+    }
+    .playstation{
+        background: linear-gradient(135deg, #ffffff 50%, #006FCD 50%);
+        background-attachment: fixed;  
+        background-size: cover;        
+        background-repeat: no-repeat; 
+    }
+    .pc{
+        background: linear-gradient(135deg, #ffffff 50%, #37E0B6 50%);
+        background-attachment: fixed;   
+        background-size: cover;        
+        background-repeat: no-repeat; 
+    }
+    .create{
+        background: linear-gradient(135deg, #ffffff 50%, #1C1C1C 50%);
+        background-attachment: fixed;   
+        background-size: cover;       
+        background-repeat: no-repeat; 
+    }
+    .details{
+        background: linear-gradient(135deg, #ffffff 50%, #8C5606 50%);
+        background-attachment: fixed;   
+        background-size: cover;       
+        background-repeat: no-repeat; 
+    }
+  .game-card img{
+    width: fit-content;
+    height: 15.625rem;
+    object-fit: cover;
+  }
+    /*Header finish*/
+
+    /* Video background begin */
+    .video-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1; /* Ensures it stays behind other content */
+    }
+
+    #background-video {
+        object-fit: cover; /* Ensures the video covers the entire screen */
+        width: 100%;
+        height: 100%;
+    }
+
+    
+    /*Video background finish*/
+
+    /*Container that will display the text in the center (mainly used for index.html)*/
+    .container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%; 
+        color: white;
+    }
+    .container button{
+        text-align: center;
+        color: white;
+        text-decoration: none;
+        width: fit-content;
+    }
+    .container p{
+        color: white;
+    }
+
+    .logo-container{
+        width: fit-content;
+        max-width: 30rem;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: 0cap;
+    }
+    .logo{
+        max-width: 25rem;
+    }
+    /* Welcome message*/
+    .welcome-message {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    /* Platform message*/
+    .platform-message {
+        font-size: 18px;
+        margin-bottom: 40px;
+        color: #555;
+    }
+
+
+    /*Buttons styling begins*/
+
+    /*Container for platform buttons*/
+    .buttons-container, .create-container {
+        display: flex;
+        justify-content: center; /* Centers buttons horizontally */
+        gap: 20px; /* Adds space between buttons */
+        margin-top: 20px
+    }
+
+    /*General design for each platform button*/
+    .buttons-container button, .game-details button, .container button{
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        border: 3px solid transparent;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 180px;
+    }
+    /* Adding color to each platform button  */
+    .pc-button {
+        background-color: #37E0B6;
+    }
+    .create-new-button{
+        background-color: #FFD700;
+    }
+
+    .ps-button {
+        background-color: #006FCD;
+    }
+
+    .xbox-button {
+        background-color: #0E7A0D;
+    }
+
+    .nintendo-button {
+        background-color: #E4000F;
+    }
+    .about-button{
+        background-color: #8C5606;
+    }
+
+    .buttons-container button:hover, .game-details button:hover, .game-details a:hover, .create-container button:hover {
+        color: #333;
+        border-color: #333;
+        cursor: pointer;
+    }
+    /*Buttons styling ends*/
+
+    /*Dashboard Page design for each videogame begins*/
+    .dash-container{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        padding: 20px;
+        margin-top: 40px;
+    }
+    .filters {
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        gap: 20px;             
+        margin-bottom: 20px; 
+        
+    }
+    .filters input[type="text"] {
+        padding: 8px 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      
+      .filters select {
+        padding: 8px 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+      
+      .filters select:hover {
+        border-color: #999;
+      }
+    .game-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+        gap: 20px;
+    }
+    .game-card {
+        background: #f4f4f4;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s;
+        width: 40%;
+    }
+    .game-card:hover {
+        transform: scale(1.05);
+    }
+    .game-card img {
+        width: 100%;
+        border-radius: 8px;
+    }
+    /*Dashboard Page design for each videogame ends*/
+
+    /*Videogame Details page*/
+    /*Buttons for the details page are configured at the same stage than landing page buttons*/
+    /*Also the action to hover them is configured at the same time than the landing page*/
+    .game-details{
+        margin-top: 40px;
+    }
+
+    .game-details a{
+        text-decoration: none;
+        color: #fff;
+    }
+    .detail-split{
+        display: grid;
+        grid-template-columns :repeat(2,1fr);
+        justify-items: center;
+        gap: 20px;
+        /*Adding margin that will push the content down so it fits with the header*/
+        margin-top: 30px;
+        justify-content: center;
+        align-items: start;
+    }
+
+    .detail-split img{
+        width: fit-content;
+        height: 400px;
+    }
+    .game-box {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        width: 800px;
+    }
+    .game-box h2{
+        text-align: center;
+    }
+    .game-box iframe, img {
+        align-self:  center;
+        border-radius: 8px;
+    }
+    .game-btn{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        align-self: center; /* Centers buttons horizontally */
+        gap: 20px; /* Adds space between buttons */
+        margin-top: 20px
+    }
+    /*Videogame details end*/
+
+    /*Design for the footer*/
+    footer {
+        width: 100vw;         
+        margin: 0;             
+        padding: 5px 0;       
+        background-color: #333;
+        color: white;
+        text-align: center;
+        box-sizing: border-box; 
+        margin-top: 20px;
+    }
+    .footer-content {
+        max-width: 1200px;     
+        margin: 0 auto;         
+        padding: 0 20px;       
+      }
+
+/*nintendo site */
+
+.mario-pipe{
+    max-width: 6.25rem;
+    display: block;
+    position: relative;
+    left: 91rem;
+    height: 6.25rem;
+    bottom: 5rem;   
+    margin: 0;
+    max-width: fit-content;
+}
+/*About us page*/
+.about-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: -440px;
+}
+
+.about-intro{
+    text-align: center;
+    padding: 20px;
+}
+/* Author Section */
+.authors {
+    align-self: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.authors h2{
+    text-align: center;
+}
+.author-grid{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+.author-box {
+   
+    padding: 15px;
+    width: 250px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.author-box h3 {
+    margin: 10px 0 5px;
+}
+
+.social-links button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.social-links button:hover {
+    background: #555;
+}

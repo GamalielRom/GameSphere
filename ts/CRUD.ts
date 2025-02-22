@@ -23,11 +23,18 @@ export async function CreateVideogame(Videogame:
 export async function getAllVideogames() {
     try{
         const db = await dbPromise;
-        const query = ` SELECT v.*, GROUP_CONCAT(g.game_genre, ', ') AS genres
-                        FROM Videogames v
-                        LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
-                        LEFT JOIN Genres g ON gg.videogameId = g.id
-                        GROUP BY v.id;`;
+        const query = ` SELECT 
+                            v.*, 
+                                GROUP_CONCAT(DISTINCT g.game_genre) AS genres,
+                                GROUP_CONCAT(DISTINCT p.plataform_name) AS platforms,
+                                c.company_name
+                                FROM Videogames v
+                                LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
+                                LEFT JOIN Genres g ON gg.genresId = g.id
+                                LEFT JOIN VideogamesPlataforms vp ON v.id = vp.videogameId
+                                LEFT JOIN Plataforms p ON vp.plataformsId = p.id
+                                LEFT JOIN Companies c ON v.company_id = c.id
+                                GROUP BY v.id;`;
         const videogames = await db.all(query);
         return videogames;
     }catch(error){
@@ -40,11 +47,14 @@ export async function getAllVideogames() {
 export async function getVideogameByID(id:number) {
     try{
         const db = await dbPromise;
-        const query = `SELECT v.*, GROUP_CONCAT(g.game_genre, ', ') AS genres
+        const query = `SELECT v.*, 
+                        GROUP_CONCAT(g.game_genre, ', ') AS genres,
+                        c.company_name
                         FROM Videogames v
                         LEFT JOIN VideogamesGenre gg ON v.id = gg.videogameId
                         LEFT JOIN Genres g ON gg.genresId = g.id
-                        WHERE v.id = ?;`;
+                        LEFT JOIN Companies c ON v.company_id = c.id
+                        WHERE v.id = ?`
         const videogame = await db.get(query, id);
         return videogame;
     }catch(error){
@@ -419,12 +429,11 @@ export async function getReviewById(id:number) {
     try{
         const db = await dbPromise;
         const query = 
-        `
-        Select Reviews. * Users.userName, Videogames.gameName
-        FROM Reviews
-        JOIN Users ON Reviews.User_id = Users.id
-        JOIN Videogames ON Reviews.Videogame_id = Videogames.id
-        WHERE Reviews.id = ?;
+        `Select r.*, u.userName, v.gameName
+        FROM Reviews r
+        JOIN Users u ON r.User_id = u.id
+        JOIN Videogames v ON r.Videogame_id = v.id
+        WHERE r.id = ?;
         `;
         const review = await db.get(query, id);
         return review;
@@ -751,7 +760,7 @@ export async function removeVideogameGenre(videogameId:number, genreId: number) 
     try{
         db.run(
             `
-            DELETE FROM VideogamesGenre WHERE videogameId = ? AND genreId = ?
+            DELETE FROM VideogamesGenre WHERE videogameId = ? AND genresId = ?
             `,
             [videogameId, genreId]
         );

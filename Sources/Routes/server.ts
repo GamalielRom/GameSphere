@@ -1,5 +1,5 @@
 import express from 'express';
-
+import cors from 'cors';
 import companiesRoute from './companiesRoute';
 import genresRoute from './genresRoute';
 import  platformsRoute from './platformsRoute';
@@ -10,7 +10,14 @@ import videogameGenreRoute from './videogameGenreRoute';
 import videogamePlatforms from './videogamePlatformsRoute';
 import videogamesRoute from './videogamesRoute';
 
+const corsOptions = {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
 const app = express();
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/companies', companiesRoute);
