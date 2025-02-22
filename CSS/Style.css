@@ -222,6 +222,9 @@
     .nintendo-button {
         background-color: #E4000F;
     }
+    .about-button{
+        background-color: #8C5606;
+    }
 
     .buttons-container button:hover, .game-details button:hover, .game-details a:hover, .create-container button:hover {
         color: #333;
@@ -421,30 +424,36 @@
     max-width: fit-content;
 }
 /*About us page*/
-.about-intro, .platforms, .filter-section, .authors {
+.about-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: -440px;
+}
+
+.about-intro{
+    text-align: center;
     padding: 20px;
-    margin: 20px auto;
 }
 /* Author Section */
 .authors {
-    display: flex;
-    justify-content: center;
+    align-self: center;
     gap: 20px;
     flex-wrap: wrap;
 }
-
+.authors h2{
+    text-align: center;
+}
+.author-grid{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
 .author-box {
+   
     padding: 15px;
     width: 250px;
     border-radius: 8px;
     text-align: center;
-}
-
-.author-box img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 10px;
 }
 
 .author-box h3 {
