@@ -267,8 +267,10 @@ function displayGameDetails(game) {
                     ${buttonsHTML}
                 </div>
             </div>
+           
+        </div>
+         <div class="back-to-list-container">
             <button><a href="javascript:history.back()">Back to Games List</a></button>
         </div>
-        
     `;
 }
